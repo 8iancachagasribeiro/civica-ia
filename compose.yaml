@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - civica_data:/app/data
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CIVICA_DB: /app/data/civica.sqlite3
+    restart: unless-stopped
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["llm"]
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+volumes:
+  civica_data:
+  ollama_data:

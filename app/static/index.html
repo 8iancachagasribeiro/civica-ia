@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b2b"><title>Cívica · Evidências Públicas</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#e6eef7;background:#0b1320;font-synthesis:none}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 85% -10%,#1b3652 0%,transparent 45%),#0b1320}
+header,main,footer{max-width:1050px;margin:auto;padding:0 24px}
+header{padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em;font-size:24px}.dot{width:25px;height:25px;border-radius:9px;display:inline-grid;place-items:center;background:linear-gradient(140deg,#74f5ba,#8aacff);color:#142235;font-size:16px}
+.small{font-size:12px;color:#97a9bd}.github{color:#c4d6e8;text-decoration:none;border:1px solid #36506b;padding:9px 13px;border-radius:10px;font-size:13px}
+main{padding-top:58px;padding-bottom:60px}h1{font-size:clamp(32px,5.5vw,59px);line-height:1.09;letter-spacing:-.055em;max-width:800px;margin:0 0 20px}h1 span{color:#77eec4}
+.lead{color:#a7b9cd;font-size:17px;max-width:750px;line-height:1.6;margin-bottom:28px}
+.panel{border:1px solid #284058;background:#111f30de;border-radius:20px;padding:23px;box-shadow:0 20px 55px #0002}
+.prompt{width:100%;min-height:115px;resize:vertical;background:#0b1725;color:#f4f7fc;border:1px solid #37516b;border-radius:12px;padding:16px;font:inherit;font-size:16px;outline:none;line-height:1.5}
+.prompt:focus{border-color:#6fe2bd;box-shadow:0 0 0 3px #67efc01a}.actions{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:13px;flex-wrap:wrap}
+button{background:#73e6b8;color:#082319;border:none;border-radius:11px;padding:12px 21px;font-weight:800;font-size:14px;cursor:pointer}button:disabled{opacity:.65;cursor:wait}
+.examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.examples button{background:#1b2a3c;color:#c8dbed;border:1px solid #36506a;padding:9px 12px;font-size:12px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}.metric{padding:17px;border-radius:14px;background:#101f2f;border:1px solid #263b50}.metric strong{font-size:19px;display:block;margin:4px 0}.metric span{color:#9aafc1;font-size:12px}
+.result{margin-top:26px;display:none}.result.show{display:block}.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:#78e7c2;font-size:11px;font-weight:800;margin-bottom:9px}
+.response{border-left:3px solid #7de9c1;padding:14px 18px;background:#102638;border-radius:4px 12px 12px 4px;line-height:1.65;white-space:pre-line}
+h2{font-size:21px;letter-spacing:-.03em}.sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:15px}
+.source{border:1px solid #284158;border-radius:15px;background:#111e2b;padding:18px;overflow:hidden}.source h3{font-size:14px;margin:8px 0 6px}.source p{font-size:14px;color:#c2d2e0;line-height:1.62;white-space:pre-line;max-height:310px;overflow:auto}
+.tag{display:inline-block;color:#79e4bc;background:#133c37;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:700}.muted{color:#8ca4ba;font-size:12px}.source a{color:#81d4ff;font-size:12px}.notice{margin-top:22px;color:#8fa7ba;font-size:12px;line-height:1.5}
+footer{border-top:1px solid #25384b;color:#7e95aa;font-size:12px;padding-top:18px;padding-bottom:28px}
+@media(max-width:720px){header{padding-top:20px}main{padding-top:40px}.grid,.sources{grid-template-columns:1fr}.panel{padding:16px}.github{font-size:11px}}
+</style>
+</head>
+<body>
+<header><div class="logo"><span class="dot">✳</span>Cívica <span class="small">/ versão 0.1</span></div><a class="github" href="https://dadosabertos.tse.jus.br/" target="_blank" rel="noopener noreferrer">Fontes oficiais ↗</a></header>
+<main><div class="eyebrow">Código aberto · Pesquisa baseada em fontes</div>
+<h1>Menos discurso.<br><span>Mais evidência.</span></h1>
+<p class="lead">Consulte planos de governo, atos públicos e indicadores com rastreabilidade. Cada resposta mostra os documentos utilizados, sem classificações eleitorais ou recomendações de voto.</p>
+<section class="panel" aria-label="Consulta">
+<label for="question" style="display:block;font-weight:700;margin-bottom:12px">O que você quer investigar?</label>
+<textarea class="prompt" id="question" placeholder="Ex.: O que o plano de governo de 2022 registrou sobre alfabetização?" maxlength="800"></textarea>
+<div class="actions"><span class="muted">O acervo precisa ser importado. Respostas podem ser parciais.</span><button id="send" type="button">Pesquisar evidências →</button></div>
+<div class="examples"><button type="button" data-query="Quais compromissos sobre o SUS aparecem nos planos de governo?">Saúde e SUS</button><button type="button" data-query="O que os documentos dizem sobre alfabetização e escola pública?">Educação</button><button type="button" data-query="Quais propostas mencionam segurança pública e violência?">Segurança</button><button type="button" data-query="Quais proposições legislativas mencionam habitação e saneamento?">Legislação</button></div>
+</section>
+<section id="result" class="result" aria-live="polite"><div class="eyebrow">Resultado da pesquisa</div><div class="response" id="response"></div><h2>Documentos e trechos recuperados</h2><div class="sources" id="sources"></div><h2 id="indicator-title" style="display:none">Indicadores públicos encontrados</h2><div class="sources" id="indicators"></div><p id="notice" class="notice"></p></section>
+<div class="grid"><div class="metric"><span>Documentos no acervo</span><strong id="count">…</strong><span>Com origem identificada</span></div><div class="metric"><span>Fonte prioritária</span><strong>TSE</strong><span>Planos eleitorais em PDF</span></div><div class="metric"><span>Compromisso público</span><strong>Auditável</strong><span>Sem rankings eleitorais</span></div></div>
+<p class="notice">Protótipo de pesquisa: a presença de um compromisso em documento não comprova sua execução. Associações estatísticas não demonstram causalidade. Nenhum dado pessoal ou opinião eleitoral é solicitado.</p>
+</main><footer>Cívica · Protótipo MIT · Fontes, metodologia e limitações sempre visíveis.</footer>
+<script>
+const q=document.getElementById('question'),send=document.getElementById('send');
+document.querySelectorAll('[data-query]').forEach(b=>b.addEventListener('click',()=>{q.value=b.dataset.query;q.focus()}));
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e};
+async function loadCount(){try{const r=await fetch('/api/documents');const j=await r.json();document.getElementById('count').textContent=j.documents.length}catch{document.getElementById('count').textContent='Indisponível'}}
+async function ask(){const question=q.value.trim();if(question.length<3){q.focus();return};send.disabled=true;send.textContent='Consultando…';const result=document.getElementById('result');result.classList.add('show');document.getElementById('response').textContent='Procurando nos documentos indexados…';document.getElementById('sources').replaceChildren();document.getElementById('indicators').replaceChildren();document.getElementById('indicator-title').style.display='none';try{const res=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question})});if(!res.ok)throw Error('Falha ao pesquisar');const d=await res.json();document.getElementById('response').textContent=d.answer;document.getElementById('notice').textContent=d.notice;const area=document.getElementById('sources');for(let i=0;i<d.sources.length;i++){const s=d.sources[i],card=el('article','source'),tag=el('span','tag','E'+(i+1)+' · '+s.doc_type),title=el('h3','',s.title),meta=el('div','muted',s.issuer+' · página '+s.page+' · tema: '+s.theme),body=el('p','',s.body),link=el('a','','Abrir fonte original ↗'),hash=el('div','muted','SHA-256: '+s.sha256.slice(0,16)+'…');link.href=s.source_url;link.target='_blank';link.rel='noopener noreferrer';card.append(tag,title,meta,body,link,hash);area.append(card)}const indicators=document.getElementById('indicators');if(d.indicators.length){document.getElementById('indicator-title').style.display='block'}for(const m of d.indicators){const card=el('article','source'),tag=el('span','tag','INDICADOR · '+m.period),title=el('h3','',m.indicator_name),value=el('p','',String(m.value)+' '+m.unit),meta=el('div','muted',m.territory+' · '+m.population+' · '+m.source_issuer),link=el('a','','Consultar fonte ↗'),method=el('p','muted',m.methodology);link.href=m.source_url;link.rel='noopener noreferrer';link.target='_blank';card.append(tag,title,value,meta,method,link);indicators.append(card)}}catch(e){document.getElementById('response').textContent='Não foi possível concluir a consulta. Verifique se a API está acessível.'}finally{send.disabled=false;send.textContent='Pesquisar evidências →'}}
+send.addEventListener('click',ask);q.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))ask()});loadCount();
+</script>
+</body></html>
