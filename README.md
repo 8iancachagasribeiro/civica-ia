@@ -1,6 +1,6 @@
 # Cívica · IA aberta de evidências públicas
 
-**Versão:** MVP 0.1 • **Licença:** MIT • **Idioma:** português brasileiro
+**Versão:** MVP 0.2 • **Licença:** MIT • **Idioma:** português brasileiro
 
 Um pesquisador conversacional que recupera trechos de **planos eleitorais completos**, ementas legislativas e indicadores públicos. Preserva origem, página, documento, data e SHA-256. Não ranqueia candidaturas, não recomenda voto e não confunde promessa com realização.
 
@@ -121,6 +121,18 @@ Cada resultado da API inclui `sources` com página, link e hash. `indicators` co
 `documents` → fonte e integridade · `chunks` → texto e página · `chunk_search` → busca lexical · `commitments` → compromissos a validar · `outcome_series` → dados numéricos e metadados · `evidence_links` → ligação entre compromissos e resultados **somente mediante revisão e documentação metodológica**.
 
 O banco de dados contém tabelas para a segunda etapa, mas **não** há um classificador automático de promessas cumpridas, nem ligação causal automática de políticas com indicadores.
+
+## Grafo de rastreabilidade (incremento 0.2)
+
+A API agora dispõe de um **esquema para documentar mandatos anteriores, atos públicos e indicadores** sem inventar relações entre eles:
+
+- `GET /api/evidence-trace/overview`: quantidade de registros de cada entidade.
+- `GET /api/evidence-trace/{commitment_id}`: trecho literal de uma promessa, seus vínculos documentados com atos públicos e os indicadores associados mediante revisão.
+- `docs/MODELO_DE_EVIDENCIAS.md`: contrato de fontes, atribuição institucional, método e limites de inferência.
+
+**Limite atual:** as tabelas de rastreabilidade começam vazias, sem dados oficiais ingeridos nem associação automática. Uma série agregada por território/população não demonstra benefício para uma pessoa individual. Não existe classificação, pontuação ou recomendação eleitoral.
+
+Próximo passo de dados reais: [pipeline de integração e critérios de aceite](https://github.com/8iancachagasribeiro/civica-ia/issues/1).
 
 ## Próximas etapas priorizadas
 
