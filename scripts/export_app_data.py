@@ -9,6 +9,7 @@ from app.db import connect
 from app.comparison import enrich_excerpt,indicators_by_theme,load_studies,summarize_execution,summarize_plans
 from app.execution_sources import PEOPLE,STAGE_LABELS
 from app.themes import LABELS
+from app.personal_axes import build_personal
 
 _ALLOWED_DOMAINS = (
     "tse.jus.br", "camara.leg.br", "senado.leg.br", "bcb.gov.br",
@@ -108,7 +109,8 @@ def build_snapshot() -> dict:
         "themes":[{"key":k,"label":v} for k,v in LABELS.items()],
         "candidates":candidates,
         "comparison":{"year":2026,"plans":summarize_plans(excerpts,studies),"execution":execution,
-                      "stage_labels":STAGE_LABELS,"indicators_by_theme":indicators_by_theme()},
+                      "stage_labels":STAGE_LABELS,"indicators_by_theme":indicators_by_theme(),
+                      "personal":build_personal(excerpts,records)},
         "archived_indicator_source": archived_source,
         "methodology": (
             "Fontes públicas. Planos são compromissos, proposições são registros "

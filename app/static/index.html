@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./app.css?v=10">
+<link rel="stylesheet" href="./app.css?v=11">
 <title>Cívica | Evidências públicas</title>
 </head>
 <body>
@@ -22,6 +22,7 @@
 <nav class="nav" aria-label="Seções">
 <button type="button" data-view="pesquisar" class="nav-button active"><span>⌕</span> Pesquisar</button>
 <button type="button" data-view="cruzamentos" class="nav-button"><span>⌘</span> Cruzar fontes</button>
+<button type="button" data-view="cenario" class="nav-button"><span>☰</span> Meu cenário</button>
 <button type="button" data-view="documentos" class="nav-button"><span>▤</span> Acervo oficial</button>
 <button type="button" data-view="metodologia" class="nav-button"><span>◎</span> Metodologia</button>
 </nav>
@@ -61,6 +62,20 @@
   <p class="subtle pair-note" id="pair-note">As candidaturas aparecem em ordem pelo número na urna, sem relação com mérito. O padrão é o par do 2º turno, conforme o cadastro do TSE.</p>
   <div id="cross-result" aria-live="polite"></div>
 </section>
+<section class="view" id="view-cenario" hidden>
+  <div class="eyebrow">SUA SITUAÇÃO, SEUS DIREITOS</div><h1>Meu cenário.<br><em>Sua decisão.</em></h1>
+  <p class="lead">Marque a sua situação para ver só o que se aplica a você, com as duas candidaturas lado a lado: o que já é lei, o que prometem, dados oficiais, estudos e o que ainda não se sabe. Sem nota, sem ranking e sem recomendação de voto.</p>
+  <aside class="rights" aria-label="Seus direitos"><strong>Seus direitos aqui</strong>
+    <ul>
+      <li>Suas respostas ficam só neste navegador: não são enviadas, não são salvas e somem ao recarregar.</li>
+      <li>Você pode não responder nada. Ninguém precisa informar vínculo, renda ou gênero para usar o app.</li>
+      <li>O app não deduz preferência política e não diz em quem votar. O peso de cada tema é seu.</li>
+      <li>Toda informação traz fonte, página e limite, para você conferir no original.</li>
+    </ul></aside>
+  <form id="sc-form" class="sc-form" autocomplete="off" aria-label="Sua situação"></form>
+  <div class="filter-bar pair-bar"><label for="sc-a">Candidatura A</label><select id="sc-a"></select><label for="sc-b">Candidatura B</label><select id="sc-b"></select></div>
+  <div id="sc-result" aria-live="polite"></div>
+</section>
 <section class="view" id="view-documentos" hidden>
   <div class="eyebrow">BIBLIOTECA DE FONTES</div><h1>Documentos.<br><em>Não rumores.</em></h1>
   <p class="lead">Acompanhe a origem, a categoria, a data de eleição e o registro de integridade dos documentos disponíveis no acervo.</p>
@@ -83,11 +98,13 @@
 <nav class="bottom-nav" aria-label="Navegação móvel">
 <button type="button" data-view="pesquisar" class="active"><span>⌕</span>Busca</button>
 <button type="button" data-view="cruzamentos"><span>⌘</span>Cruzar</button>
+<button type="button" data-view="cenario"><span>☰</span>Cenário</button>
 <button type="button" data-view="documentos"><span>▤</span>Fontes</button>
 <button type="button" data-view="metodologia"><span>◎</span>Sobre</button>
 </nav>
 <div id="install-tip" class="tip" role="status" hidden></div>
-<script src="./compare.js?v=10" defer></script>
-<script src="./app.js?v=10" defer></script>
+<script src="./compare.js?v=11" defer></script>
+<script src="./scenario.js?v=11" defer></script>
+<script src="./app.js?v=11" defer></script>
 </body>
 </html>

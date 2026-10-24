@@ -25,6 +25,9 @@ SPECS = (
      "last%2028"),
 )
 IPCA_GROUPS = {"7169": "Índice geral", "7445": "Habitação", "7660": "Saúde e cuidados pessoais", "7766": "Educação"}
+IPCA_ITEMS = {"7171": "Alimentação no domicílio", "7448": "Aluguel residencial", "7449": "Condomínio",
+              "7482": "Gás de botijão", "7484": "Energia elétrica residencial", "7627": "Transporte público",
+              "7695": "Plano de saúde"}
 GENDERS = {"Total": ("TOTAL", "ambos os sexos"), "Homens": ("HOMENS", "homens"), "Mulheres": ("MULHERES", "mulheres")}
 
 
@@ -71,6 +74,23 @@ def parse_ipca_groups(rows: list[dict], page_url: str) -> list[dict]:
     return out
 
 
+def parse_ipca_items(rows: list[dict], page_url: str) -> list[dict]:
+    out = []
+    for r in rows[1:]:
+        raw = (r.get("V") or "").strip()
+        label = IPCA_ITEMS.get(r.get("D4C", ""))
+        if raw in ("", "..", "...", "-") or not label:
+            continue
+        out.append({
+            "indicator_code": "IBGE_7060_IPCA12M_ITEM_" + re.sub(r"\W+", "_", norm(label).upper()),
+            "indicator_name": "IPCA acumulado em 12 meses: " + label, "unit": "%",
+            "period": r["D3C"], "territory": "Brasil", "population": "Preços ao consumidor (famílias de 1 a 40 SM)",
+            "value": float(raw), "source_url": page_url, "source_issuer": ISSUER,
+            "methodology": "Variação de preços de um item da cesta; mede custo de vida, não efeito de política.",
+        })
+    return out
+
+
 def _fetch(path: str) -> list[dict]:
     r = requests.get(f"{API}/{path}", timeout=60, headers={"User-Agent": "Civica-Evidencias/0.1 (pesquisa)"})
     r.raise_for_status()
@@ -88,6 +108,7 @@ def collect(fetch=_fetch) -> list[dict]:
         rows += parse_rows(fetch(path), spec, PAGE.format(table=table))
     ids = ",".join(IPCA_GROUPS)
     rows += parse_ipca_groups(fetch(f"t/7060/n1/all/v/2265/p/last%2084/c315/{ids}"), PAGE.format(table=7060))
+    rows += parse_ipca_items(fetch(f"t/7060/n1/all/v/2265/p/last%2084/c315/{','.join(IPCA_ITEMS)}"), PAGE.format(table=7060))
     return rows
 
 

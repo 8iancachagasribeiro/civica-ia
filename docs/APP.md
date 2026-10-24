@@ -8,15 +8,17 @@ Aplicativo web progressivo (PWA), responsivo e instalável em celulares e deskto
 
 1. **Pesquisar:** busca passagens literais dos documentos públicos, com título, trecho, página e link original.
 2. **Cruzar fontes:** compara duas candidaturas, tema a tema, em camadas separadas: **Pretende** (plano de governo 2026 do TSE), **Diz que fez** (alegações do próprio plano, não verificadas), **Registro oficial** (proposições da Câmara e do Senado e seu desfecho), **O que mudou no país** (séries nacionais do IBGE, sem atribuição) e **Impacto possível** (estudos de avaliação de políticas, com limites). O par padrão é o do 2º turno, conforme o cadastro do TSE; a ordem é a do número na urna. Não há pontuação nem ordem de mérito. Esta recuperação conjunta **não estabelece relação causal**.
-3. **Acervo oficial:** catálogo de documentos recuperados com hash de integridade e origem.
-4. **Metodologia:** diferencia promessa, ato público, execução, observação e possível causalidade.
+3. **Meu cenário:** a pessoa marca a própria situação (vínculo de trabalho, renda, aluguel, compra de imóvel, filhos pequenos, animais, temas voltados a mulheres) e o app mostra só os eixos de vida que se aplicam, com as duas candidaturas lado a lado: plano 2026, registro oficial, dado nacional, estudos e lacunas. A personalização é **apenas um filtro**: roda no navegador, não envia nem salva nada (sem rede, localStorage, sessionStorage ou cookie) e some ao recarregar; responder é opcional. Não há soma, nota nem ordem de mérito entre eixos. Definição dos eixos em `app/personal_axes.py`.
+4. **Acervo oficial:** catálogo de documentos recuperados com hash de integridade e origem.
+5. **Metodologia:** diferencia promessa, ato público, execução, observação e possível causalidade.
 
 ## Dados de verdade
 
 O arquivo `app/static/data/evidence.json` não é editado manualmente nem inventado pelo frontend. É gerado em cada sincronização a partir do banco SQLite preenchido por importadores oficiais:
 - Planos do TSE (2022 e 2026) e o cadastro oficial de candidaturas, que confere quem é quem pelo `SQ_CANDIDATO`;
 - Registro legislativo: proposições do Poder Executivo na Câmara (MPV, PL, PLP, PEC, desde 2023) e autorias do senador Flávio Bolsonaro no Senado (desde 2019), com desfecho atual;
-- Séries nacionais: IPCA e desocupação (Banco Central), rendimento, desocupação por sexo, informalidade (IBGE/SIDRA) e IPCA por grupo (saúde, educação, habitação);
+- Taxas de juros (Banco Central): meta Selic mensal e financiamento imobiliário por modalidade (mediana entre instituições e CAIXA);
+- Séries nacionais: IPCA e desocupação (Banco Central), rendimento, desocupação por sexo, informalidade (IBGE/SIDRA) e IPCA por grupo (saúde, educação, habitação) e por item (aluguel, condomínio, energia, gás, alimentação no domicílio, plano de saúde);
 - Estudos de impacto curados em `app/static/data/impact_studies.json` (ver `docs/CURADORIA_IMPACTO.md`).
 
 A classificação por tema (`app/themes.py`) usa fronteira de palavra e admite vários temas por trecho. A leitura "compromisso", "balanço", número, prazo e fonte de recursos é lexical e descritiva: não avalia a proposta.

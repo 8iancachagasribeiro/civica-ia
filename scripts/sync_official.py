@@ -8,6 +8,7 @@ from app.ingest import import_tse,MANIFESTS
 from app.tse_registry import fetch_presidents,verify_manifest
 from app.execution_sources import PEOPLE,sync_person
 from app.sidra_source import import_sidra
+from app.bcb_rates import import_rates
 from app.public_sources import import_ibge_ipca
 from app.bcb_source import import_bcb_ipca,import_bcb_context
 from app.traceability import trace_overview
@@ -44,6 +45,7 @@ def sync(include_tse=True,include_camara=True,include_ibge=True,require_source=T
         tasks.append(('bcb_desocupacao_24369',lambda:import_bcb_context(24369)))
         tasks.append(('bcb_pib_nominal_4380',lambda:import_bcb_context(4380)))
         tasks.append(('ibge_sidra_pnadc_ipca_grupos',import_sidra))
+        tasks.append(('bcb_selic_e_juros_imobiliarios',import_rates))
     for name,fn in tasks:
         try:
             out=fn()

@@ -68,7 +68,7 @@ def public_cross(tema: str, ano: int | None = None, territorio: str = 'Brasil'):
 # Serve the same installable PWA from FastAPI and a static Pages deployment.
 @app.get('/{asset_name}')
 def app_asset(asset_name: str):
-    valid = {'app.css':'text/css','app.js':'application/javascript','compare.js':'application/javascript',
+    valid = {'app.css':'text/css','app.js':'application/javascript','compare.js':'application/javascript','scenario.js':'application/javascript',
              'sw.js':'application/javascript','icon.svg':'image/svg+xml',
              'icon-192.png':'image/png','icon-512.png':'image/png',
              'manifest.webmanifest':'application/manifest+json'}

@@ -269,5 +269,5 @@ function themeBrief(data,studies,theme){
   box.append(b);
   return box;
 }
-window.CivicaCompare={render,themeBrief,fmtPeriod,periodKey};
+window.CivicaCompare={render,themeBrief,fmtPeriod,periodKey,el,link,note,passage,seriesTable,studyCard,block};
 })();

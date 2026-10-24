@@ -3,17 +3,18 @@
     "chunks": 2852,
     "commitments": 0,
     "documents": 16,
-    "outcome_series": 754
+    "outcome_series": 1642
   },
-  "finished_at": "2026-10-24T02:00:32.598703+00:00",
+  "finished_at": "2026-10-24T02:56:04.801678+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
     "bcb_desocupacao_24369": {
+      "note": "Primeira tentativa do sync falhou (erro HTTP transitório do BCB); reexecutada com sucesso.",
       "result": {
         "first_period": "201901",
         "last_period": "202608",
         "response_sha256": "bb806ddb982151a812ff2fc3b552b63f71ff051f4ca9ca7e68dff6d4e0d4cf15",
-        "retrieved_at": "2026-10-24T02:00:28.824460+00:00",
+        "retrieved_at": "2026-10-24T02:56:24.514478+00:00",
         "rows": 92,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "Taxa de desocupação - PNAD Contínua",
@@ -26,7 +27,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-24T02:00:27.816657+00:00",
+        "retrieved_at": "2026-10-24T02:55:33.488709+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -51,11 +52,20 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "c0fef1e78aee79a5140eebac1080c21679d139c7aea3009e8644b70e23181e63",
-        "retrieved_at": "2026-10-24T02:00:29.952951+00:00",
+        "retrieved_at": "2026-10-24T02:55:44.525929+00:00",
         "rows": 93,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "PIB mensal nominal estimado pelo Banco Central",
         "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4380/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
+      },
+      "status": "ok"
+    },
+    "bcb_selic_e_juros_imobiliarios": {
+      "result": {
+        "first_period": "202201",
+        "last_period": "202610",
+        "rows": 398,
+        "series": 7
       },
       "status": "ok"
     },
@@ -68,8 +78,8 @@
       "result": {
         "first_period": "2017T3",
         "last_period": "2026T2",
-        "rows": 476,
-        "series": 11
+        "rows": 966,
+        "series": 18
       },
       "status": "ok"
     },
@@ -133,9 +143,9 @@
     }
   },
   "schema_version": "0.3",
-  "sources_attempted": 10,
-  "sources_successful": 9,
-  "started_at": "2026-10-24T01:57:41.216238+00:00",
+  "sources_attempted": 11,
+  "sources_successful": 10,
+  "started_at": "2026-10-24T02:52:34.901573+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,

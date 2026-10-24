@@ -14,6 +14,7 @@ function move(view){
   document.querySelectorAll("[data-view]").forEach(item=>{const active=item.dataset.view===view;item.classList.toggle("active",active);item.setAttribute("aria-current",active?"page":"false")});
   if(view==="documentos")renderDocuments();
   if(view==="cruzamentos")renderCross();
+  if(view==="cenario")renderScenario();
   window.scrollTo({top:0,behavior:"instant"});
 }
 function link(url,label){
@@ -139,11 +140,20 @@ function fillCandidates(){
   const list=((state.data&&state.data.candidates)||[]).filter(c=>c.plan_document_id).sort((x,y)=>Number(x.number)-Number(y.number));
   const runoff=list.filter(c=>c.in_runoff);
   const pick=(runoff.length>=2?runoff:list).slice(0,2);
-  for(const[id,slot]of[["cand-a",0],["cand-b",1]]){
+  for(const[id,slot]of[["cand-a",0],["cand-b",1],["sc-a",0],["sc-b",1]]){
     const select=byId(id);
     select.replaceChildren(...list.map(c=>{const o=e("option","",(c.display_name||c.ballot_name)+" ("+c.party+" "+c.number+")");o.value=c.sq;return o}));
     if(pick[slot])select.value=pick[slot].sq;
   }
+}
+function scenarioPair(){
+  return["sc-a","sc-b"].map(id=>(state.data.candidates||[]).find(c=>c.sq===byId(id).value)).filter(Boolean);
+}
+function renderScenario(){
+  const result=byId("sc-result");
+  if(!state.data){result.replaceChildren(empty("O acervo público ainda não está disponível neste dispositivo."));return}
+  CivicaScenario.setPairProvider(scenarioPair);
+  CivicaScenario.render(byId("sc-form"),result,state.data,state.studies,scenarioPair());
 }
 function renderCross(){
   const root=byId("cross-result");
@@ -214,6 +224,7 @@ function init(){
   byId("question").addEventListener("keydown",ev=>{if(ev.key==="Enter"&&(ev.ctrlKey||ev.metaKey))search()});
   byId("cross-search").addEventListener("click",renderCross);
   for(const id of["theme","cand-a","cand-b"])byId(id).addEventListener("change",renderCross);
+  for(const id of["sc-a","sc-b"])byId(id).addEventListener("change",renderScenario);
   document.addEventListener("click",ev=>{
     const button=ev.target.closest&&ev.target.closest('[data-action="compare"]');
     if(button){byId("theme").value=button.dataset.theme;move("cruzamentos")}

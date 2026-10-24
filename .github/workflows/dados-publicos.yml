@@ -11,6 +11,8 @@ on:
       - 'app/execution_sources.py'
       - 'app/tse_registry.py'
       - 'app/themes.py'
+      - 'app/bcb_rates.py'
+      - 'app/personal_axes.py'
       - 'app/comparison.py'
       - 'app/static/data/impact_studies.json'
       - 'scripts/export_app_data.py'
