@@ -73,3 +73,5 @@ h1,h2,h3{font-family:Manrope,system-ui,sans-serif;letter-spacing:-.055em}h1{font
 .axis-card{border:1px solid #cfe0d5;background:#fff;border-radius:20px;padding:18px;margin:16px 0}
 .axis-card-head h3{font-size:20px;margin:0 0 6px}.axis-why{font-size:13px;color:#5d7268;line-height:1.6;margin:0 0 8px}.axis-reasons{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .axis-card .compare-grid{margin:10px 0}.cand-head h4{font-size:17px;margin:0 0 4px}
+
+.notice{background:#fbf6e9;border-bottom:1px solid #eadfbd;color:#5b4a1b;font-size:12px;line-height:1.55;padding:9px clamp(22px,4.5vw,70px)}.notice .linklike{background:none;border:0;padding:0;margin-left:4px;color:#7a5a12;font-weight:800;font-size:12px;text-decoration:underline}

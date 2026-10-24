@@ -42,7 +42,7 @@ Acesse http://localhost:8000, depois use "Instalar" no navegador compatível. A 
 
 ## Publicação no GitHub Pages
 
-Fluxo de implantação: `.github/workflows/publicar-app.yml`. Para habilitar pela primeira vez, configure o repositório em **Settings → Pages → Build and deployment → Source: GitHub Actions**. Sem essa permissão/configuração do repositório, o workflow pode falhar mesmo com testes passando. O endereço será `https://8iancachagasribeiro.github.io/civica-ia/` **somente após confirmação do deploy**.
+Fluxo de implantação: `.github/workflows/publicar-app.yml`. Para habilitar pela primeira vez, configure o repositório em **Settings → Pages → Build and deployment → Source: GitHub Actions**. Já está ativa. O endereço é `https://8iancachagasribeiro.github.io/civica-ia/`; cada merge na `main` que altere `app/static/**` publica uma nova versão.
 
 ## Limitações atuais
 
