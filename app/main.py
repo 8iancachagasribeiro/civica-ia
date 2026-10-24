@@ -1,6 +1,6 @@
 from __future__ import annotations
 from pathlib import Path
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from .db import connect
@@ -63,3 +63,21 @@ def public_cross(tema: str, ano: int | None = None, territorio: str = 'Brasil'):
         return factual_cross(tema,ano,territorio)
     except ValueError as exc:
         raise HTTPException(status_code=422,detail=str(exc)) from exc
+
+
+# Serve the same installable PWA from FastAPI and a static Pages deployment.
+@app.get('/{asset_name}')
+def app_asset(asset_name: str):
+    valid = {'app.css':'text/css','app.js':'application/javascript',
+             'sw.js':'application/javascript','icon.svg':'image/svg+xml',
+             'manifest.webmanifest':'application/manifest+json'}
+    if asset_name not in valid:
+        raise HTTPException(status_code=404,detail='Arquivo não encontrado.')
+    return FileResponse(ROOT/'static'/asset_name,media_type=valid[asset_name])
+
+@app.get('/data/evidence.json')
+def app_evidence_snapshot():
+    path = ROOT/'static'/'data'/'evidence.json'
+    if not path.exists():
+        raise HTTPException(status_code=404,detail='Acervo ainda não exportado.')
+    return FileResponse(path,media_type='application/json')
