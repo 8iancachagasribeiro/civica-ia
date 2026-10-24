@@ -242,7 +242,12 @@ function renderCross(){
     axis.tokens.some(token=>normalize(x.body).includes(normalize(token))):x.theme===topic);
   const plans=[],laws=[];
   const planSeen=new Set(),lawsSeen=new Set();
-  for(const row of excerpts){
+  const ranked=excerpts.slice().sort((a,b)=>{
+    if(!axis)return 0;
+    const relevance=row=>axis.tokens.reduce((n,token)=>n+(normalize(row.body).includes(normalize(token))?1:0),0);
+    return relevance(b)-relevance(a);
+  });
+  for(const row of ranked){
     if(row.doc_type==="plano_eleitoral"&&!planSeen.has(row.document_id)){
       plans.push(row);planSeen.add(row.document_id);
     }
