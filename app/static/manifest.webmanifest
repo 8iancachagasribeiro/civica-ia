@@ -1,0 +1,19 @@
+{
+  "name": "Cívica · Evidências públicas",
+  "short_name": "Cívica",
+  "description": "Investigação documental de políticas públicas, com fontes verificáveis e metodologia transparente.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f5",
+  "theme_color": "#f7f8f5",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
