@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import requests
 from .db import connect
 
-BCB_IPCA_URL='https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/96?formato=json'
+BCB_IPCA_URL='https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026'
 
 def parse_bcb_ipca(data:object,source_url:str=BCB_IPCA_URL)->list[dict]:
     if not isinstance(data,list):raise ValueError('Formato SGS inválido')
