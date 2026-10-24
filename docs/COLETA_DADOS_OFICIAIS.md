@@ -6,7 +6,7 @@
 - **Câmara:** https://dadosabertos.camara.leg.br/api/v2/proposicoes?ano=2024&itens=25&pagina=1. Até 25 ementas. Ementa de proposição não é lei aprovada, e não demonstra autoria individual sem consulta específica.
 - **IBGE/SIDRA:** https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/-36/variaveis/63?localidades=N1%5Ball%5D. IPCA mensal do Brasil, variável 63 do agregado 1737; valor observado, sem atribuição causal política.
 
-- **Banco Central SGS 433:** https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/96?formato=json. Registros mensais do IPCA originado no IBGE, com URL, SHA-256, intervalo e método. Ativado para redundância quando a conexão IBGE estiver indisponível.
+- **Banco Central SGS 433:** https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026. Registros mensais do IPCA originado no IBGE, com URL, SHA-256, intervalo e método. Ativado para redundância quando a conexão IBGE estiver indisponível.
 
 ## Procedimento
 
