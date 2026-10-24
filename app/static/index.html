@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./app.css?v=4">
+<link rel="stylesheet" href="./app.css?v=5">
 <title>Cívica | Evidências públicas</title>
 </head>
 <body>
@@ -38,13 +38,14 @@
     <div class="search-actions"><span>Não fazemos recomendações de voto.</span><button class="primary" type="button" id="search">Investigar <span aria-hidden="true">↗</span></button></div>
   </div>
   <div class="suggestions"><span class="suggest-label">EXPLORE</span>
+    <button type="button" data-example="Quais dados há sobre políticas para mulheres?">Mulheres ↗</button>
     <button type="button" data-example="O que os planos de 2022 dizem sobre universidades?">Universidades ↗</button>
     <button type="button" data-example="Quais documentos mencionam saúde e SUS?">Saúde e SUS ↗</button>
     <button type="button" data-example="Quais dados existem sobre inflação e renda?">Inflação e renda ↗</button>
     <button type="button" data-example="O que os planos dizem sobre segurança pública?">Segurança ↗</button>
   </div>
   <section class="result-zone" id="result-zone" aria-live="polite" hidden>
-    <div class="section-head"><div><div class="eyebrow">RESULTADO DOCUMENTAL</div><h2>O que encontramos</h2></div><span class="subtle">Trechos verificáveis, não conclusões eleitorais</span></div>
+    <div class="section-head"><div><div class="eyebrow">EVIDÊNCIAS POR TEMA</div><h2>O que encontramos</h2></div><span class="subtle">Fontes, medições e lacunas</span></div>
     <div class="answer" id="answer"></div>
     <div id="results"></div>
   </section>
@@ -54,8 +55,8 @@
 </section>
 <section class="view" id="view-cruzamentos" hidden>
   <div class="eyebrow">CRUZAMENTO DOCUMENTAL</div><h1>O mesmo tema.<br><em>Fontes diferentes.</em></h1>
-  <p class="lead">Localize compromissos eleitorais, registros legislativos e indicadores que tratam de um mesmo assunto. Coocorrência não demonstra impacto causal.</p>
-  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="economia">Economia</option><option value="saúde">Saúde</option><option value="educação">Educação</option><option value="segurança">Segurança</option><option value="justiça">Justiça</option><option value="habitação">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
+  <p class="lead">Veja, para cada assunto, os registros documentais, as séries observadas e as lacunas sobre execução e impacto. Dados de origens diferentes só convergem após verificar definições e recortes.</p>
+  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="economia">Economia</option><option value="mulheres">Mulheres</option><option value="saúde">Saúde</option><option value="educação">Educação</option><option value="segurança">Segurança</option><option value="justiça">Justiça</option><option value="habitação">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
   <div id="cross-result" aria-live="polite"></div>
 </section>
 <section class="view" id="view-documentos" hidden>
@@ -69,7 +70,7 @@
   <div class="method-cards">
     <article><span>01 / PLANO</span><h3>O que foi prometido?</h3><p>Preservamos os documentos originais, páginas, datas, autoria e integridade por SHA-256.</p></article>
     <article><span>02 / AÇÃO</span><h3>O que foi efetivamente feito?</h3><p>Diferenciamos projeto, votação, lei aprovada, orçamento pago e serviço entregue. Essas camadas ainda estão sendo integradas.</p></article>
-    <article><span>03 / IMPACTO</span><h3>O que mudou?</h3><p>As séries públicas têm fonte e período. Não atribuímos causalidade apenas pela coincidência temporal.</p></article>
+    <article><span>03 / RESULTADO E IMPACTO</span><h3>O que mudou?</h3><p>Contamos séries distintas, não meses como fontes independentes. Convergência exige definições, recortes e períodos compatíveis; impacto causal requer análise própria.</p></article>
   </div>
   <div class="trust"><span class="trust-icon">◎</span><div><strong>Privacidade e autonomia.</strong><p>O app não pede dados pessoais nem preferências políticas, não pontua políticos e não recomenda votos. Dados salvos para uso offline ficam no dispositivo.</p></div></div>
   <p class="method-note">Módulo de síntese por modelo de linguagem opcional disponível na API original. A edição web instalável usa recuperação documental e não simula uma IA generativa quando a API não está disponível.</p>
@@ -84,6 +85,6 @@
 <button type="button" data-view="metodologia"><span>◎</span>Sobre</button>
 </nav>
 <div id="install-tip" class="tip" role="status" hidden></div>
-<script src="./app.js?v=4" defer></script>
+<script src="./app.js?v=5" defer></script>
 </body>
 </html>
