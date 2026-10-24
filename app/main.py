@@ -68,7 +68,7 @@ def public_cross(tema: str, ano: int | None = None, territorio: str = 'Brasil'):
 # Serve the same installable PWA from FastAPI and a static Pages deployment.
 @app.get('/{asset_name}')
 def app_asset(asset_name: str):
-    valid = {'app.css':'text/css','app.js':'application/javascript',
+    valid = {'app.css':'text/css','app.js':'application/javascript','compare.js':'application/javascript',
              'sw.js':'application/javascript','icon.svg':'image/svg+xml',
              'icon-192.png':'image/png','icon-512.png':'image/png',
              'manifest.webmanifest':'application/manifest+json'}
@@ -76,9 +76,11 @@ def app_asset(asset_name: str):
         raise HTTPException(status_code=404,detail='Arquivo não encontrado.')
     return FileResponse(ROOT/'static'/asset_name,media_type=valid[asset_name])
 
-@app.get('/data/evidence.json')
-def app_evidence_snapshot():
-    path = ROOT/'static'/'data'/'evidence.json'
+@app.get('/data/{data_name}')
+def app_data_file(data_name: str):
+    if data_name not in ('evidence.json','impact_studies.json'):
+        raise HTTPException(status_code=404,detail='Arquivo não encontrado.')
+    path = ROOT/'static'/'data'/data_name
     if not path.exists():
         raise HTTPException(status_code=404,detail='Acervo ainda não exportado.')
     return FileResponse(path,media_type='application/json')

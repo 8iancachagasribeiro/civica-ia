@@ -4,24 +4,46 @@ import argparse
 import json
 from datetime import datetime,timezone
 from pathlib import Path
-from app.ingest import import_tse,import_camara
+from app.ingest import import_tse,MANIFESTS
+from app.tse_registry import fetch_presidents,verify_manifest
+from app.execution_sources import PEOPLE,sync_person
+from app.sidra_source import import_sidra
 from app.public_sources import import_ibge_ipca
 from app.bcb_source import import_bcb_ipca,import_bcb_context
 from app.traceability import trace_overview
 from app.db import connect
+
+REGISTRY_FILE=Path('data/sources/tse_presidente_2026.json')
+
+def sync_registry():
+    """Cadastro oficial de candidaturas; confere o manifesto de planos antes de usá-lo."""
+    registry=fetch_presidents(2026)
+    problems=verify_manifest(MANIFESTS[2026],2026,registry['candidates'])
+    registry['manifest_problems']=problems
+    REGISTRY_FILE.parent.mkdir(parents=True,exist_ok=True)
+    REGISTRY_FILE.write_text(json.dumps(registry,ensure_ascii=False,indent=1)+'\n',encoding='utf-8')
+    if problems:raise ValueError('Manifesto diverge do cadastro TSE: '+'; '.join(problems))
+    return {'candidates':len(registry['candidates']),
+            'in_runoff':[c['name'] for c in registry['candidates'] if c['in_runoff']],'zip_sha256':registry['zip_sha256']}
 
 def sync(include_tse=True,include_camara=True,include_ibge=True,require_source=True):
     report={'schema_version':'0.3','started_at':datetime.now(timezone.utc).isoformat(),
      'official_sources':{},'note':('Fontes originais. Temas correlatos não significam execução, '
       'causalidade ou benefício individual. Sem ranquear ou recomendar políticos.')}
     tasks=[]
-    if include_tse:tasks.append(('tse_planos_2022',lambda:import_tse(2022)))
-    if include_camara:tasks.append(('camara_proposicoes_2024',lambda:import_camara(2024,25)))
+    if include_tse:
+        tasks.append(('tse_cadastro_presidente_2026',sync_registry))
+        tasks.append(('tse_planos_2022',lambda:import_tse(2022)))
+        tasks.append(('tse_planos_2026',lambda:import_tse(2026)))
+    if include_camara:
+        for sq,person in PEOPLE.items():
+            tasks.append(('registro_legislativo_'+person['scope']+'_'+sq,lambda sq=sq:sync_person(sq)))
     if include_ibge:
         tasks.append(('ibge_ipca',import_ibge_ipca))
         tasks.append(('bcb_ipca_433',import_bcb_ipca))
         tasks.append(('bcb_desocupacao_24369',lambda:import_bcb_context(24369)))
         tasks.append(('bcb_pib_nominal_4380',lambda:import_bcb_context(4380)))
+        tasks.append(('ibge_sidra_pnadc_ipca_grupos',import_sidra))
     for name,fn in tasks:
         try:
             out=fn()

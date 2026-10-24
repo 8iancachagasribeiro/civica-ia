@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./app.css?v=9">
+<link rel="stylesheet" href="./app.css?v=10">
 <title>Cívica | Evidências públicas</title>
 </head>
 <body>
@@ -56,7 +56,9 @@
 <section class="view" id="view-cruzamentos" hidden>
   <div class="eyebrow">CRUZAMENTO DOCUMENTAL</div><h1>O mesmo tema.<br><em>Fontes diferentes.</em></h1>
   <p class="lead">Veja, para cada assunto, os registros documentais, as séries observadas e as lacunas sobre execução e impacto. Dados de origens diferentes só convergem após verificar definições e recortes.</p>
-  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="economia">Economia</option><option value="mulheres">Mulheres</option><option value="saúde">Saúde</option><option value="educação">Educação</option><option value="segurança">Segurança</option><option value="justiça">Justiça</option><option value="habitação">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
+  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="mulheres">Mulheres</option><option value="economia">Economia</option><option value="saude">Saúde</option><option value="educacao">Educação</option><option value="seguranca">Segurança</option><option value="justica">Justiça</option><option value="habitacao">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
+  <div class="filter-bar pair-bar"><label for="cand-a">Candidatura A</label><select id="cand-a"></select><label for="cand-b">Candidatura B</label><select id="cand-b"></select></div>
+  <p class="subtle pair-note" id="pair-note">As candidaturas aparecem em ordem pelo número na urna, sem relação com mérito. O padrão é o par do 2º turno, conforme o cadastro do TSE.</p>
   <div id="cross-result" aria-live="polite"></div>
 </section>
 <section class="view" id="view-documentos" hidden>
@@ -69,8 +71,8 @@
   <p class="lead">A Cívica é um projeto aberto de consulta e auditoria de dados públicos. O corpus cresce conforme novas bases são verificadas.</p>
   <div class="method-cards">
     <article><span>01 / PLANO</span><h3>O que foi prometido?</h3><p>Preservamos os documentos originais, páginas, datas, autoria e integridade por SHA-256.</p></article>
-    <article><span>02 / AÇÃO</span><h3>O que foi efetivamente feito?</h3><p>Diferenciamos projeto, votação, lei aprovada, orçamento pago e serviço entregue. Essas camadas ainda estão sendo integradas.</p></article>
-    <article><span>03 / RESULTADO E IMPACTO</span><h3>O que mudou?</h3><p>Contamos séries distintas, não meses como fontes independentes. Convergência exige definições, recortes e períodos compatíveis; impacto causal requer análise própria.</p></article>
+    <article><span>02 / AÇÃO</span><h3>O que foi efetivamente feito?</h3><p>Diferenciamos projeto, votação, lei aprovada, orçamento pago e serviço entregue. Já integramos o registro legislativo oficial (Câmara e Senado); orçamento pago e serviço entregue ainda não.</p></article>
+    <article><span>03 / RESULTADO E IMPACTO</span><h3>O que mudou?</h3><p>Séries nacionais mostram a trajetória do país, sem atribuí-la a ninguém. Estudos contrafactuais avaliam políticas passadas, com limites declarados. Convergência exige definições, recortes e períodos compatíveis.</p></article>
   </div>
   <div class="trust"><span class="trust-icon">◎</span><div><strong>Privacidade e autonomia.</strong><p>O app não pede dados pessoais nem preferências políticas, não pontua políticos e não recomenda votos. Dados salvos para uso offline ficam no dispositivo.</p></div></div>
   <p class="method-note">Módulo de síntese por modelo de linguagem opcional disponível na API original. A edição web instalável usa recuperação documental e não simula uma IA generativa quando a API não está disponível.</p>
@@ -85,6 +87,7 @@
 <button type="button" data-view="metodologia"><span>◎</span>Sobre</button>
 </nav>
 <div id="install-tip" class="tip" role="status" hidden></div>
-<script src="./app.js?v=9" defer></script>
+<script src="./compare.js?v=10" defer></script>
+<script src="./app.js?v=10" defer></script>
 </body>
 </html>

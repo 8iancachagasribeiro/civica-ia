@@ -7,6 +7,12 @@ on:
       - 'app/public_sources.py'
       - 'app/ingest.py'
       - 'app/bcb_source.py'
+      - 'app/sidra_source.py'
+      - 'app/execution_sources.py'
+      - 'app/tse_registry.py'
+      - 'app/themes.py'
+      - 'app/comparison.py'
+      - 'app/static/data/impact_studies.json'
       - 'scripts/export_app_data.py'
       - '.github/workflows/dados-publicos.yml'
   workflow_dispatch:
@@ -44,6 +50,7 @@ jobs:
           path: |
             data/civica.sqlite3
             data/official_snapshot.json
+            data/sources/tse_presidente_2026.json
             app/static/data/evidence.json
             app/static/icon-192.png
             app/static/icon-512.png
@@ -53,7 +60,7 @@ jobs:
         run: |
           git config user.name 'civica-dados-bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/official_snapshot.json app/static/data/evidence.json app/static/icon-192.png app/static/icon-512.png
+          git add -f data/official_snapshot.json data/sources/tse_presidente_2026.json app/static/data/evidence.json app/static/icon-192.png app/static/icon-512.png
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'data: atualizar comprovantes e acervo do aplicativo'
           git fetch origin main

@@ -41,6 +41,7 @@ MANIFESTS={
   '2026BR280002551932':'Ronaldo Caiado',
   '2026BR280002551547':'Augusto Cury',
   '2026BR280002538811':'Samara Martins',
+  '2026BR280002554479':'Leonardo Avalanche',
  }
 }
 MAX_ZIP=60_000_000

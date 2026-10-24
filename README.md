@@ -4,11 +4,11 @@
 
 Um pesquisador conversacional que recupera trechos de **planos eleitorais completos**, ementas legislativas e indicadores públicos. Preserva origem, página, documento, data e SHA-256. Não ranqueia candidaturas, não recomenda voto e não confunde promessa com realização.
 
-> **Estado atual (24/10/2026):** o aplicativo web instalável está no GitHub com busca documental estática, exportação auditável do acervo e testes automatizados. A coleta confirmou 2 planos presidenciais de 2022, 25 proposições e 93 observações mensais do IPCA. O deploy GitHub Pages ainda exige ativação em Settings → Pages → Source: GitHub Actions. O modelo Ollama é opcional e não está hospedado; o app público não executa LLM nem avaliação causal.
+> **Estado atual (24/10/2026):** o aplicativo compara candidaturas tema a tema em camadas separadas (pretende, diz que fez, registro oficial, o que mudou no país, impacto possível). A coleta traz 16 planos presidenciais (2 de 2022 e os 14 de 2026, conferidos contra o cadastro oficial do TSE), 349 proposições do Poder Executivo na Câmara (2023–2026) e 165 autorias do senador Flávio Bolsonaro no Senado (2019–2026), com desfecho atual, além de 754 observações de séries nacionais do IBGE e do Banco Central. Cobre só o registro legislativo: decretos, despesa paga e entrega de serviços ainda não entram. O deploy GitHub Pages ainda exige ativação em Settings → Pages → Source: GitHub Actions. O modelo Ollama é opcional e não está hospedado; o app público não executa LLM nem avaliação causal.
 
 ## Aplicativo instalável (PWA)
 
-A Cívica tem agora uma interface responsiva com pesquisa factual, cruzamentos por tema, acervo e metodologia. O arquivo de dados do aplicativo é exportado de fontes oficiais, não inventado pelo frontend. Os usuários podem instalá-la pelo navegador compatível e fazer consultas offline depois do primeiro carregamento completo.
+A Cívica tem uma interface responsiva com pesquisa factual, comparação de candidaturas por tema, acervo e metodologia. O arquivo de dados do aplicativo é exportado de fontes oficiais, não inventado pelo frontend. Os usuários podem instalá-la pelo navegador compatível e fazer consultas offline depois do primeiro carregamento completo.
 
 - **Publicação:** GitHub Actions → [Publicar Cívica App](https://github.com/8iancachagasribeiro/civica-ia/actions/workflows/publicar-app.yml).
 - **Habilitação necessária:** GitHub → Settings → Pages → Build and deployment → Source = **GitHub Actions**.

@@ -58,6 +58,16 @@ CREATE TABLE IF NOT EXISTS outcome_series (
  methodology TEXT NOT NULL DEFAULT '',
  UNIQUE(indicator_code,period,territory,population,source_url)
 );
+-- Registros oficiais coletados por API (Câmara/Senado): estágio legislativo, não execução.
+CREATE TABLE IF NOT EXISTS execution_records (
+ id INTEGER PRIMARY KEY, person_sq TEXT NOT NULL, identifier TEXT NOT NULL,
+ kind TEXT NOT NULL, ementa TEXT NOT NULL, presented_on TEXT NOT NULL,
+ situation TEXT NOT NULL, stage TEXT NOT NULL
+   CHECK(stage IN ('lei','aprovada','tramitando','encerrada','perdeu_eficacia')),
+ body TEXT NOT NULL, authorship TEXT NOT NULL, source_url TEXT NOT NULL,
+ themes TEXT NOT NULL DEFAULT '', nature TEXT NOT NULL DEFAULT 'politica',
+ UNIQUE(person_sq,body,identifier)
+);
 CREATE TABLE IF NOT EXISTS evidence_links (
  id INTEGER PRIMARY KEY, commitment_id INTEGER NOT NULL REFERENCES commitments(id),
  outcome_series_id INTEGER REFERENCES outcome_series(id),
