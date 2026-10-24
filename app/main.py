@@ -70,6 +70,7 @@ def public_cross(tema: str, ano: int | None = None, territorio: str = 'Brasil'):
 def app_asset(asset_name: str):
     valid = {'app.css':'text/css','app.js':'application/javascript',
              'sw.js':'application/javascript','icon.svg':'image/svg+xml',
+             'icon-192.png':'image/png','icon-512.png':'image/png',
              'manifest.webmanifest':'application/manifest+json'}
     if asset_name not in valid:
         raise HTTPException(status_code=404,detail='Arquivo não encontrado.')
