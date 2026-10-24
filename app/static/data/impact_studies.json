@@ -1,0 +1,114 @@
+{
+  "schema_version": "impact-studies-1",
+  "curated_at": "2026-10-24",
+  "studies": [
+    {
+      "id": "lmp-ipea-2015",
+      "themes": [
+        "Mulheres"
+      ],
+      "policy": "Lei Maria da Penha (2006)",
+      "outcome": "Homicídios de mulheres dentro da residência",
+      "estimate": "Cerca de 10% abaixo da taxa contrafactual estimada",
+      "period": "2000–2011",
+      "population": "Mulheres, Brasil; recorte de homicídios dentro da residência",
+      "data_sources": "Sistema de Informações sobre Mortalidade (SIM/MS); comparação com homicídios de homens e controles por microrregião",
+      "method": "Diferenças em diferenças: trajetória de homicídios de mulheres em residência comparada à de homens, com controles",
+      "interpretation": "A análise estima que, sem a lei e políticas associadas, a taxa de homicídios domésticos de mulheres teria sido cerca de 10% maior.",
+      "limits": "Estimativa histórica de um conjunto de medidas em 2006. Não mede todas as formas de violência, nem efeitos atuais ou de um plano eleitoral de 2022. Identificação depende das hipóteses do grupo de comparação.",
+      "source_title": "Ipea, Texto para Discussão 2048 (2015)",
+      "source_url": "https://repositorio.ipea.gov.br/items/5b40d7d0-4d65-46fb-9f56-6b39dae7db11",
+      "type": "contrafactual"
+    },
+    {
+      "id": "lmp-garcia-2013",
+      "themes": [
+        "Mulheres"
+      ],
+      "policy": "Lei Maria da Penha (2006)",
+      "outcome": "Mortalidade de mulheres por agressões, independentemente do local",
+      "estimate": "Não encontrou redução sustentada na série nacional antes/depois",
+      "period": "2001–2011",
+      "population": "Mulheres, Brasil",
+      "data_sources": "Sistema de Informações sobre Mortalidade (SIM/MS)",
+      "method": "Estudo ecológico de tendência antes e depois da lei",
+      "interpretation": "No desfecho mais amplo de mortes por agressão, a comparação temporal não encontrou queda sustentada.",
+      "limits": "Desfecho e desenho diferem da estimativa do Ipea para homicídios dentro da residência; antes/depois, sem contrafactual comparável, não demonstra efeito causal nulo.",
+      "source_title": "Garcia, Freitas e Höfelmann, Epidemiologia e Serviços de Saúde (2013)",
+      "source_url": "https://scielo.iec.gov.br/pdf/ess/v22n3/v22n3a03.pdf",
+      "type": "tendencia"
+    },
+    {
+      "id": "pbf-economia-2009",
+      "themes": [
+        "Economia"
+      ],
+      "policy": "Expansão do Bolsa Família em 2009",
+      "outcome": "Atividade econômica e emprego formal locais",
+      "estimate": "Multiplicador estimado de produto local: 1,49 (erro padrão 0,51)",
+      "period": "Reforma de 2009; dados municipais antes e depois",
+      "population": "Municípios brasileiros afetados em graus diferentes pela expansão",
+      "data_sources": "CadÚnico e pagamentos do PBF; registros administrativos de emprego formal; dados municipais",
+      "method": "Diferenças em diferenças com variação quase experimental na expansão do programa entre municípios; multiplicador inferido de emprego e hipóteses de produção",
+      "interpretation": "A expansão estudada gerou efeitos positivos sobre atividade local; o número 1,49 é uma estimativa modelada para o contexto estudado, não um retorno garantido.",
+      "limits": "Multiplicador sensível às hipóteses sobre produtividade e emprego informal; não é o crescimento nacional do PIB, nem identifica efeito de candidaturas ou propostas de 2022.",
+      "source_title": "Gerard, Naritomi e Silva, World Bank Policy Research Working Paper 9778 (2021)",
+      "source_url": "https://documents1.worldbank.org/curated/en/769531632319615215/pdf/Cash-Transfers-and-Formal-Labor-Markets-Evidence-from-Brazil.pdf",
+      "type": "contrafactual"
+    },
+    {
+      "id": "pim-pbf-saude-2021",
+      "themes": [
+        "Saúde"
+      ],
+      "policy": "Primeira Infância Melhor combinado à cobertura do Bolsa Família",
+      "outcome": "Mortalidade de crianças de 1 a 4 anos por causas externas",
+      "estimate": "Redução estimada de 0,29 morte por 1.000 crianças no recorte de municípios com 7+ anos de PIM e alta cobertura do PBF",
+      "period": "2006–2012",
+      "population": "Municípios do Rio Grande do Sul; crianças de 1 a 4 anos",
+      "data_sources": "Painel de 496 municípios; cobertura dos programas e taxas de mortalidade infantil",
+      "method": "Painel municipal com efeitos fixos e interação entre exposição ao PIM e cobertura do PBF",
+      "interpretation": "O estudo encontra efeito complementar dos programas para mortes por causas externas nesse recorte.",
+      "limits": "Não encontrou evidência robusta para mortalidade geral ou por diarreia; sensibilidade aos limiares de cobertura. Associação ajustada, sujeita a fatores não observados variáveis no tempo; não extrapolar ao SUS inteiro.",
+      "source_title": "Ribeiro et al., Planejamento e Políticas Públicas 60 (2021)",
+      "source_url": "https://repositorio.ipea.gov.br/server/api/core/bitstreams/930491f8-30bb-4f9a-95da-eaa9b7f00aef/content",
+      "type": "quase_experimental"
+    },
+    {
+      "id": "prouca-ipea-2018",
+      "themes": [
+        "Educação"
+      ],
+      "policy": "Programa Um Computador por Aluno (Prouca)",
+      "outcome": "Notas na Prova Brasil e no Enem",
+      "estimate": "Prova Brasil, média por escola: sem efeito estatisticamente significativo; por aluno, anos finais: +2,3% português e +3,1% matemática",
+      "period": "2009–2011",
+      "population": "Escolas e alunos participantes da avaliação",
+      "data_sources": "Prova Brasil, Enem, Censo Escolar e variáveis das escolas",
+      "method": "Diferenças em diferenças com pareamento por escore de propensão (escolas); pareamento (alunos)",
+      "interpretation": "Os resultados dependem do exame e da unidade de análise: efeito médio escolar não significativo na Prova Brasil, alguns ganhos por aluno.",
+      "limits": "Não demonstra melhora geral da educação pública; resultados de subgrupos e testes específicos, e a seleção de participantes pode deixar diferenças não medidas.",
+      "source_title": "Ipea, Texto para Discussão 2363 (2018)",
+      "source_url": "https://repositorio.ipea.gov.br/bitstream/11058/8259/1/TD_2363.pdf",
+      "type": "quase_experimental"
+    },
+    {
+      "id": "amazonia-prioritarios-2022",
+      "themes": [
+        "Meio ambiente"
+      ],
+      "policy": "Lista de municípios prioritários para controle do desmatamento (2008)",
+      "outcome": "Desmatamento nos municípios alvo",
+      "estimate": "Redução estimada de 43% no desmatamento; quase 50 milhões de toneladas de carbono em emissões evitadas",
+      "period": "Política iniciada em 2008; análise retrospectiva",
+      "population": "Municípios da Amazônia incluídos na lista prioritária",
+      "data_sources": "Dados municipais de desmatamento e emissões ligados à política de fiscalização",
+      "method": "Changes-in-changes com comparação contrafactual entre municípios",
+      "interpretation": "No recorte da política e do estudo, a fiscalização direcionada é associada a menor desmatamento em relação ao contrafactual estimado.",
+      "limits": "Resultado específico de municípios selecionados, período e desenho; não equivale à variação do desmatamento em toda a Amazônia ou à responsabilidade de um candidato.",
+      "source_title": "Assunção et al., Review of Economic Studies 90(4) (2023)",
+      "source_url": "https://academic.oup.com/restud/article-abstract/90/4/1608/6747968",
+      "type": "contrafactual"
+    }
+  ]
+}
