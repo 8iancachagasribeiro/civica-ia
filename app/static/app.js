@@ -97,7 +97,7 @@ const EVIDENCE_AXES=[
 ];
 function evidenceOverview(question){
   const root=e("div","evidence-overview");
-  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(question));
+  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(normalize(question)));
   const selected=axes.length?axes:[EVIDENCE_AXES.find(axis=>axis.label.toLowerCase()===getTopic(question))].filter(Boolean);
   const title=e("h3","","Síntese do acervo por assunto");
   root.append(title);
