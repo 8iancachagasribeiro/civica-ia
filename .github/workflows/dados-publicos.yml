@@ -1,0 +1,50 @@
+name: Coleta auditavel de dados publicos
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync_official.py'
+      - 'app/public_sources.py'
+      - 'app/ingest.py'
+      - '.github/workflows/dados-publicos.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '19 10 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: official-data-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Testar importadores e modelo de dados
+        run: python -m pytest -q
+      - name: Baixar originais TSE, Camara e IBGE, validar e indexar
+        run: python -m scripts.sync_official
+      - name: Preservar base sincronizada e relatorio como artefatos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: civica-dados-oficiais-${{ github.run_number }}
+          path: |
+            data/civica.sqlite3
+            data/official_snapshot.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publicar proveniencia auditavel no repositorio
+        run: |
+          git config user.name 'civica-dados-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/official_snapshot.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'data: atualizar comprovantes da coleta oficial [skip ci]'
+          git push origin HEAD:main
