@@ -237,7 +237,9 @@ function renderCross(){
   root.replaceChildren();
   if(!state.data){root.append(empty("O acervo público ainda não está disponível neste dispositivo."));return}
   const topic=byId("theme").value;
-  const excerpts=state.data.excerpts.filter(x=>x.theme===topic);
+  const axis=EVIDENCE_AXES.find(item=>normalize(item.label)===normalize(topic));
+  const excerpts=state.data.excerpts.filter(x=>axis?
+    axis.tokens.some(token=>normalize(x.body).includes(normalize(token))):x.theme===topic);
   const plans=[],laws=[];
   const planSeen=new Set(),lawsSeen=new Set();
   for(const row of excerpts){
@@ -248,7 +250,15 @@ function renderCross(){
       laws.push(row);lawsSeen.add(row.document_id);
     }
   }
-  const indicators=state.data.indicators.filter(x=>getTopic(x.indicator_name)===topic).slice(0,12);
+  const matching=state.data.indicators.filter(x=>axis?
+    axis.tokens.some(token=>normalize(x.indicator_name+" "+x.indicator_code+" "+x.population).includes(normalize(token))):
+    getTopic(x.indicator_name)===topic);
+  const latest=new Map();
+  for(const row of matching){
+    const key=row.indicator_code+"|"+row.territory+"|"+row.population;
+    if(!latest.has(key)||monthlyIndex(row.period)>monthlyIndex(latest.get(key).period))latest.set(key,row);
+  }
+  const indicators=[...latest.values()];
   root.append(evidenceOverview(topic));
   root.append(e("div","answer","Os registros abaixo ampliam a consulta documental. Coincidência de tema não demonstra execução ou impacto."));
   section(root,"Compromissos registrados",plans.slice(0,16),"PLANO ELEITORAL");
