@@ -18,7 +18,11 @@
       "limits": "Estimativa histórica de um conjunto de medidas em 2006. Não mede todas as formas de violência, nem efeitos atuais ou de um plano eleitoral de 2022. Identificação depende das hipóteses do grupo de comparação.",
       "source_title": "Ipea, Texto para Discussão 2048 (2015)",
       "source_url": "https://repositorio.ipea.gov.br/items/5b40d7d0-4d65-46fb-9f56-6b39dae7db11",
-      "type": "contrafactual"
+      "type": "contrafactual",
+      "policy_patterns": [
+        "maria da penha",
+        "medidas? protetivas?"
+      ]
     },
     {
       "id": "lmp-garcia-2013",
@@ -36,7 +40,11 @@
       "limits": "Desfecho e desenho diferem da estimativa do Ipea para homicídios dentro da residência; antes/depois, sem contrafactual comparável, não demonstra efeito causal nulo.",
       "source_title": "Garcia, Freitas e Höfelmann, Epidemiologia e Serviços de Saúde (2013)",
       "source_url": "https://scielo.iec.gov.br/pdf/ess/v22n3/v22n3a03.pdf",
-      "type": "tendencia"
+      "type": "tendencia",
+      "policy_patterns": [
+        "maria da penha",
+        "medidas? protetivas?"
+      ]
     },
     {
       "id": "pbf-economia-2009",
@@ -54,7 +62,11 @@
       "limits": "Multiplicador sensível às hipóteses sobre produtividade e emprego informal; não é o crescimento nacional do PIB, nem identifica efeito de candidaturas ou propostas de 2022.",
       "source_title": "Gerard, Naritomi e Silva, World Bank Policy Research Working Paper 9778 (2021)",
       "source_url": "https://documents1.worldbank.org/curated/en/769531632319615215/pdf/Cash-Transfers-and-Formal-Labor-Markets-Evidence-from-Brazil.pdf",
-      "type": "contrafactual"
+      "type": "contrafactual",
+      "policy_patterns": [
+        "bolsa familia",
+        "transferencia de renda"
+      ]
     },
     {
       "id": "pim-pbf-saude-2021",
@@ -72,7 +84,11 @@
       "limits": "Não encontrou evidência robusta para mortalidade geral ou por diarreia; sensibilidade aos limiares de cobertura. Associação ajustada, sujeita a fatores não observados variáveis no tempo; não extrapolar ao SUS inteiro.",
       "source_title": "Ribeiro et al., Planejamento e Políticas Públicas 60 (2021)",
       "source_url": "https://repositorio.ipea.gov.br/server/api/core/bitstreams/930491f8-30bb-4f9a-95da-eaa9b7f00aef/content",
-      "type": "quase_experimental"
+      "type": "quase_experimental",
+      "policy_patterns": [
+        "primeira infancia melhor",
+        "\\bpim\\b"
+      ]
     },
     {
       "id": "prouca-ipea-2018",
@@ -90,7 +106,11 @@
       "limits": "Não demonstra melhora geral da educação pública; resultados de subgrupos e testes específicos, e a seleção de participantes pode deixar diferenças não medidas.",
       "source_title": "Ipea, Texto para Discussão 2363 (2018)",
       "source_url": "https://repositorio.ipea.gov.br/bitstream/11058/8259/1/TD_2363.pdf",
-      "type": "quase_experimental"
+      "type": "quase_experimental",
+      "policy_patterns": [
+        "computador por aluno",
+        "\\bprouca\\b"
+      ]
     },
     {
       "id": "amazonia-prioritarios-2022",
@@ -108,7 +128,33 @@
       "limits": "Resultado específico de municípios selecionados, período e desenho; não equivale à variação do desmatamento em toda a Amazônia ou à responsabilidade de um candidato.",
       "source_title": "Assunção et al., Review of Economic Studies 90(4) (2023)",
       "source_url": "https://academic.oup.com/restud/article-abstract/90/4/1608/6747968",
-      "type": "contrafactual"
+      "type": "contrafactual",
+      "policy_patterns": [
+        "municipios prioritarios",
+        "fiscaliza\\w*[^.]{0,120}desmat",
+        "desmat\\w*[^.]{0,120}fiscaliza"
+      ]
+    },
+    {
+      "id": "pbf-mortalidade-infantil-2013",
+      "themes": [
+        "Saúde"
+      ],
+      "policy": "Programa Bolsa Família (cobertura municipal)",
+      "outcome": "Mortalidade de crianças menores de 5 anos, geral e por causas ligadas à pobreza",
+      "estimate": "Razão de taxas 0,83 (IC 95% 0,79–0,88) na cobertura consolidada; 0,35 (0,24–0,50) para desnutrição e 0,47 (0,37–0,61) para diarreia",
+      "period": "2004–2009",
+      "population": "2.853 de 5.565 municípios com estatísticas vitais de qualidade adequada",
+      "data_sources": "Estatísticas oficiais de óbitos e nascidos vivos; cobertura do Bolsa Família; covariáveis sociais e econômicas; cobertura do Programa Saúde da Família",
+      "method": "Desenho ecológico misto: painel de municípios com modelos binomiais negativos de efeitos fixos, ajustados por covariáveis e pela cobertura do Programa Saúde da Família",
+      "interpretation": "Em municípios com cobertura maior e mais duradoura do programa, a mortalidade de menores de 5 anos foi menor, sobretudo por desnutrição e diarreia.",
+      "limits": "Desenho ecológico: associação ajustada entre municípios, não efeito sobre pessoas; fatores não observados que variam no tempo podem permanecer. Só municípios com dados de qualidade adequada (cerca de metade). Período anterior a 2010: não mede o programa atual nem seus valores de hoje.",
+      "source_title": "Rasella et al., The Lancet 382 (2013)",
+      "source_url": "https://doi.org/10.1016/S0140-6736(13)60715-1",
+      "type": "painel_ajustado",
+      "policy_patterns": [
+        "bolsa familia"
+      ]
     }
   ]
 }

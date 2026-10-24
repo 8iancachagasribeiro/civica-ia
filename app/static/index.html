@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./app.css?v=9">
+<link rel="stylesheet" href="./app.css?v=11">
 <title>Cívica | Evidências públicas</title>
 </head>
 <body>
@@ -22,6 +22,7 @@
 <nav class="nav" aria-label="Seções">
 <button type="button" data-view="pesquisar" class="nav-button active"><span>⌕</span> Pesquisar</button>
 <button type="button" data-view="cruzamentos" class="nav-button"><span>⌘</span> Cruzar fontes</button>
+<button type="button" data-view="cenario" class="nav-button"><span>☰</span> Meu cenário</button>
 <button type="button" data-view="documentos" class="nav-button"><span>▤</span> Acervo oficial</button>
 <button type="button" data-view="metodologia" class="nav-button"><span>◎</span> Metodologia</button>
 </nav>
@@ -56,8 +57,24 @@
 <section class="view" id="view-cruzamentos" hidden>
   <div class="eyebrow">CRUZAMENTO DOCUMENTAL</div><h1>O mesmo tema.<br><em>Fontes diferentes.</em></h1>
   <p class="lead">Veja, para cada assunto, os registros documentais, as séries observadas e as lacunas sobre execução e impacto. Dados de origens diferentes só convergem após verificar definições e recortes.</p>
-  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="economia">Economia</option><option value="mulheres">Mulheres</option><option value="saúde">Saúde</option><option value="educação">Educação</option><option value="segurança">Segurança</option><option value="justiça">Justiça</option><option value="habitação">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
+  <div class="filter-bar"><label for="theme">Área de interesse</label><select id="theme"><option value="mulheres">Mulheres</option><option value="economia">Economia</option><option value="saude">Saúde</option><option value="educacao">Educação</option><option value="seguranca">Segurança</option><option value="justica">Justiça</option><option value="habitacao">Habitação</option><option value="ambiente">Meio ambiente</option></select><button id="cross-search" class="primary" type="button">Cruzar dados ↗</button></div>
+  <div class="filter-bar pair-bar"><label for="cand-a">Candidatura A</label><select id="cand-a"></select><label for="cand-b">Candidatura B</label><select id="cand-b"></select></div>
+  <p class="subtle pair-note" id="pair-note">As candidaturas aparecem em ordem pelo número na urna, sem relação com mérito. O padrão é o par do 2º turno, conforme o cadastro do TSE.</p>
   <div id="cross-result" aria-live="polite"></div>
+</section>
+<section class="view" id="view-cenario" hidden>
+  <div class="eyebrow">SUA SITUAÇÃO, SEUS DIREITOS</div><h1>Meu cenário.<br><em>Sua decisão.</em></h1>
+  <p class="lead">Marque a sua situação para ver só o que se aplica a você, com as duas candidaturas lado a lado: o que já é lei, o que prometem, dados oficiais, estudos e o que ainda não se sabe. Sem nota, sem ranking e sem recomendação de voto.</p>
+  <aside class="rights" aria-label="Seus direitos"><strong>Seus direitos aqui</strong>
+    <ul>
+      <li>Suas respostas ficam só neste navegador: não são enviadas, não são salvas e somem ao recarregar.</li>
+      <li>Você pode não responder nada. Ninguém precisa informar vínculo, renda ou gênero para usar o app.</li>
+      <li>O app não deduz preferência política e não diz em quem votar. O peso de cada tema é seu.</li>
+      <li>Toda informação traz fonte, página e limite, para você conferir no original.</li>
+    </ul></aside>
+  <form id="sc-form" class="sc-form" autocomplete="off" aria-label="Sua situação"></form>
+  <div class="filter-bar pair-bar"><label for="sc-a">Candidatura A</label><select id="sc-a"></select><label for="sc-b">Candidatura B</label><select id="sc-b"></select></div>
+  <div id="sc-result" aria-live="polite"></div>
 </section>
 <section class="view" id="view-documentos" hidden>
   <div class="eyebrow">BIBLIOTECA DE FONTES</div><h1>Documentos.<br><em>Não rumores.</em></h1>
@@ -69,8 +86,8 @@
   <p class="lead">A Cívica é um projeto aberto de consulta e auditoria de dados públicos. O corpus cresce conforme novas bases são verificadas.</p>
   <div class="method-cards">
     <article><span>01 / PLANO</span><h3>O que foi prometido?</h3><p>Preservamos os documentos originais, páginas, datas, autoria e integridade por SHA-256.</p></article>
-    <article><span>02 / AÇÃO</span><h3>O que foi efetivamente feito?</h3><p>Diferenciamos projeto, votação, lei aprovada, orçamento pago e serviço entregue. Essas camadas ainda estão sendo integradas.</p></article>
-    <article><span>03 / RESULTADO E IMPACTO</span><h3>O que mudou?</h3><p>Contamos séries distintas, não meses como fontes independentes. Convergência exige definições, recortes e períodos compatíveis; impacto causal requer análise própria.</p></article>
+    <article><span>02 / AÇÃO</span><h3>O que foi efetivamente feito?</h3><p>Diferenciamos projeto, votação, lei aprovada, orçamento pago e serviço entregue. Já integramos o registro legislativo oficial (Câmara e Senado); orçamento pago e serviço entregue ainda não.</p></article>
+    <article><span>03 / RESULTADO E IMPACTO</span><h3>O que mudou?</h3><p>Séries nacionais mostram a trajetória do país, sem atribuí-la a ninguém. Estudos contrafactuais avaliam políticas passadas, com limites declarados. Convergência exige definições, recortes e períodos compatíveis.</p></article>
   </div>
   <div class="trust"><span class="trust-icon">◎</span><div><strong>Privacidade e autonomia.</strong><p>O app não pede dados pessoais nem preferências políticas, não pontua políticos e não recomenda votos. Dados salvos para uso offline ficam no dispositivo.</p></div></div>
   <p class="method-note">Módulo de síntese por modelo de linguagem opcional disponível na API original. A edição web instalável usa recuperação documental e não simula uma IA generativa quando a API não está disponível.</p>
@@ -81,10 +98,13 @@
 <nav class="bottom-nav" aria-label="Navegação móvel">
 <button type="button" data-view="pesquisar" class="active"><span>⌕</span>Busca</button>
 <button type="button" data-view="cruzamentos"><span>⌘</span>Cruzar</button>
+<button type="button" data-view="cenario"><span>☰</span>Cenário</button>
 <button type="button" data-view="documentos"><span>▤</span>Fontes</button>
 <button type="button" data-view="metodologia"><span>◎</span>Sobre</button>
 </nav>
 <div id="install-tip" class="tip" role="status" hidden></div>
-<script src="./app.js?v=9" defer></script>
+<script src="./compare.js?v=11" defer></script>
+<script src="./scenario.js?v=11" defer></script>
+<script src="./app.js?v=11" defer></script>
 </body>
 </html>

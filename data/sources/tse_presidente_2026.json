@@ -1,0 +1,150 @@
+{
+ "source_name": "TSE, consulta de candidaturas (dados abertos)",
+ "source_url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
+ "year": 2026,
+ "zip_sha256": "52ba1779b826780e897856e2f6f69707f595f2b6172da0a38f22cd54b79b3902",
+ "accessed_at": "2026-10-24T02:52:35.964390+00:00",
+ "candidates": [
+  {
+   "sq": "280002542548",
+   "name": "Luiz Inácio Lula da Silva",
+   "ballot_name": "LULA",
+   "party": "PT",
+   "number": "13",
+   "registration_status": "#NE",
+   "result_first_round": "2º TURNO",
+   "in_runoff": true
+  },
+  {
+   "sq": "280002540694",
+   "name": "Renan Antonio Ferreira dos Santos",
+   "ballot_name": "RENAN SANTOS",
+   "party": "MISSÃO",
+   "number": "14",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002541457",
+   "name": "Hertz da Conceicao Dias",
+   "ballot_name": "HERTZ DIAS",
+   "party": "PSTU",
+   "number": "16",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002551975",
+   "name": "Edmilson Silva Costa",
+   "ballot_name": "EDMILSON COSTA",
+   "party": "PCB",
+   "number": "21",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002551544",
+   "name": "Flavio Nantes Bolsonaro",
+   "ballot_name": "FLAVIO BOLSONARO",
+   "party": "PL",
+   "number": "22",
+   "registration_status": "#NE",
+   "result_first_round": "2º TURNO",
+   "in_runoff": true
+  },
+  {
+   "sq": "280002552484",
+   "name": "Clariana Zacarkim Barao",
+   "ballot_name": "CLARIANA BARAO",
+   "party": "DC",
+   "number": "27",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002553884",
+   "name": "Pablo Henrique Costa Marcal",
+   "ballot_name": "PABLO MARÇAL",
+   "party": "PRTB",
+   "number": "28",
+   "registration_status": "#NE",
+   "result_first_round": "#NULO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002554479",
+   "name": "Leonardo Alves de Araujo",
+   "ballot_name": "LEONARDO AVALANCHE",
+   "party": "PRTB",
+   "number": "28",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002552487",
+   "name": "Rui Costa Pimenta",
+   "ballot_name": "RUI COSTA PIMENTA",
+   "party": "PCO",
+   "number": "29",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002539826",
+   "name": "Romeu Zema Neto",
+   "ballot_name": "ZEMA",
+   "party": "NOVO",
+   "number": "30",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002548139",
+   "name": "Wilson Grassi Junior",
+   "ballot_name": "VETERINÁRIO WILSON GRASSI",
+   "party": "DEMOCRATA",
+   "number": "35",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002551932",
+   "name": "Ronaldo Ramos Caiado",
+   "ballot_name": "RONALDO CAIADO",
+   "party": "PSD",
+   "number": "55",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002551547",
+   "name": "Augusto Jorge Cury",
+   "ballot_name": "ESCRITOR AUGUSTO CURY",
+   "party": "AVANTE",
+   "number": "70",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  },
+  {
+   "sq": "280002538811",
+   "name": "Samara Martins da Silva Feitosa",
+   "ballot_name": "SAMARA",
+   "party": "UP",
+   "number": "80",
+   "registration_status": "#NE",
+   "result_first_round": "NÃO ELEITO",
+   "in_runoff": false
+  }
+ ],
+ "manifest_problems": []
+}
