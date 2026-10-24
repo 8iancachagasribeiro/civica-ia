@@ -20,8 +20,8 @@ Um pesquisador conversacional que recupera trechos de **planos eleitorais comple
 ## Início rápido no computador (Python 3.11+)
 
 ```bash
-unzip civica_ia_aberta_mvp.zip
-cd civica_mvp
+git clone https://github.com/8iancachagasribeiro/civica-ia.git
+cd civica-ia
 python -m venv .venv
 source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -32,7 +32,7 @@ Abra **http://localhost:8000**. A página ficará inicialmente sem documentos; i
 
 ## Importar documentos oficiais
 
-Em outro terminal, com `.venv` ativado e dentro de `civica_mvp`:
+Em outro terminal, com `.venv` ativado e dentro de `civica-ia`:
 
 ```bash
 # Planos presidenciais de 2022: manifestos de Lula e Jair Bolsonaro
