@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 from .db import connect
 from .core import find_evidence, find_indicators, is_voting_recommendation
 from .llm import make_answer
+from .traceability import get_trace, trace_overview
 
 app=FastAPI(title='Cívica | IA de Evidências Públicas',version='0.1.0',
             description='Consulta auditável de documentos públicos, sem recomendação eleitoral.')
@@ -37,3 +38,18 @@ def ask(req:AskRequest):
     clean=[{k:v for k,v in r.items() if k!='relevance'} for r in evidence]
     return {'answer':answer, 'sources':clean, 'indicators':indicators, 'recommendation_blocked':blocked,
             'notice':'Promessas ≠ implementação. Correlação ≠ causalidade. Acervo pode estar incompleto.'}
+
+ 
+@app.get('/api/evidence-trace/overview')
+def evidence_trace_overview():
+    return trace_overview()
+
+@app.get('/api/evidence-trace/{commitment_id}')
+def evidence_trace(commitment_id: int):
+    from fastapi import HTTPException
+    if commitment_id < 1:
+        raise HTTPException(status_code=404, detail='Registro não encontrado.')
+    result = get_trace(commitment_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail='Registro não encontrado.')
+    return result
