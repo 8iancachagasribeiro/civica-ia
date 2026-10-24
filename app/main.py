@@ -53,3 +53,13 @@ def evidence_trace(commitment_id: int):
     if result is None:
         raise HTTPException(status_code=404, detail='Registro não encontrado.')
     return result
+
+
+@app.get('/api/public-cross')
+def public_cross(tema: str, ano: int | None = None, territorio: str = 'Brasil'):
+    from fastapi import HTTPException
+    from .crossings import factual_cross
+    try:
+        return factual_cross(tema,ano,territorio)
+    except ValueError as exc:
+        raise HTTPException(status_code=422,detail=str(exc)) from exc
