@@ -3,17 +3,30 @@
     "chunks": 354,
     "commitments": 0,
     "documents": 27,
-    "outcome_series": 93
+    "outcome_series": 278
   },
-  "finished_at": "2026-10-24T01:03:21.328266+00:00",
+  "finished_at": "2026-10-24T01:04:03.914717+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
+    "bcb_desocupacao_24369": {
+      "result": {
+        "first_period": "201901",
+        "last_period": "202608",
+        "response_sha256": "bb806ddb982151a812ff2fc3b552b63f71ff051f4ca9ca7e68dff6d4e0d4cf15",
+        "retrieved_at": "2026-10-24T01:04:02.886603+00:00",
+        "rows": 92,
+        "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
+        "source": "Taxa de desocupação - PNAD Contínua",
+        "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.24369/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
+      },
+      "status": "ok"
+    },
     "bcb_ipca_433": {
       "result": {
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-24T01:03:21.317940+00:00",
+        "retrieved_at": "2026-10-24T01:03:59.486004+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -30,6 +43,19 @@
         "scientific_limit": "Inflação observada não mede benefício individual nem estabelece causalidade governamental.",
         "source": "Banco Central SGS série 433 (IPCA; fonte IBGE)",
         "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
+      },
+      "status": "ok"
+    },
+    "bcb_pib_nominal_4380": {
+      "result": {
+        "first_period": "201901",
+        "last_period": "202609",
+        "response_sha256": "c0fef1e78aee79a5140eebac1080c21679d139c7aea3009e8644b70e23181e63",
+        "retrieved_at": "2026-10-24T01:04:03.905423+00:00",
+        "rows": 93,
+        "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
+        "source": "PIB mensal nominal estimado pelo Banco Central",
+        "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4380/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
       },
       "status": "ok"
     },
@@ -60,9 +86,9 @@
     }
   },
   "schema_version": "0.3",
-  "sources_attempted": 4,
-  "sources_successful": 3,
-  "started_at": "2026-10-24T01:03:03.502812+00:00",
+  "sources_attempted": 6,
+  "sources_successful": 5,
+  "started_at": "2026-10-24T01:03:43.522789+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
