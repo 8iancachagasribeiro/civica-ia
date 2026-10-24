@@ -46,6 +46,7 @@ function card(row,kind){
   if(row.body)box.append(e("p","reading",row.body));
   if(row.value!==undefined)box.append(e("p","","Valor publicado: "+Number(row.value).toLocaleString("pt-BR")+" "+(row.unit||"")+" · "+row.period));
   if(row.population)box.append(e("p","meta",row.population+" · "+row.territory+" · "+row.period));
+  if(row.indicator_code&&row.source_issuer)box.append(e("p","meta","Fonte: "+row.source_issuer));
   if(row.person)box.append(e("p","meta","Documento registrado: "+row.person));
   if(row.sha256)box.append(e("div","hash","SHA-256: "+row.sha256));
   box.append(link(row.source_url));
@@ -81,10 +82,17 @@ function findRecords(query){
       if(!excerpts.some(x=>x.id===item.row.id))excerpts.push(item.row);
     }
   }
-  const indicators=state.data.indicators.filter(row=>{
+  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(normalize(query)));
+  const relevant=state.data.indicators.filter(row=>{
     const hay=normalize(row.indicator_name+" "+row.indicator_code+" "+row.population+" "+row.territory);
-    return words.some(w=>hay.includes(w));
-  }).slice(0,12);
+    return words.some(w=>hay.includes(w))||axes.some(axis=>axis.tokens.some(token=>hay.includes(normalize(token))));
+  });
+  const latest=new Map();
+  for(const row of relevant){
+    const key=row.indicator_code+"|"+row.territory+"|"+row.population;
+    if(!latest.has(key)||monthlyIndex(row.period)>monthlyIndex(latest.get(key).period))latest.set(key,row);
+  }
+  const indicators=[...latest.values()].slice(0,12);
   return {excerpts,indicators};
 }
 const EVIDENCE_AXES=[
