@@ -176,6 +176,7 @@ async function loadData(){
   }
 }
 function installSupport(){
+  byId("install").hidden=window.matchMedia("(display-mode: standalone)").matches;
   window.addEventListener("beforeinstallprompt",ev=>{
     ev.preventDefault();state.deferredInstall=ev;byId("install").hidden=false;
   });
