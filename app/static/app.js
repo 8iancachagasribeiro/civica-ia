@@ -93,53 +93,106 @@ const EVIDENCE_AXES=[
   {label:"Saúde",tokens:["saude","sus","hospital","vacina"],query:/sa[uú]de|sus|hospital|vacina/i},
   {label:"Educação",tokens:["educa","escola","universid","alfabet"],query:/educa|escola|universid|alfabet/i},
   {label:"Segurança",tokens:["seguranca","violencia","homicid","policia"],query:/seguran|viol[eê]ncia|homic[ií]d|pol[ií]cia/i},
-  {label:"Justiça",tokens:["justica","judici","tribunal"],query:/justi[cç]a|judici|tribunal/i}
+  {label:"Justiça",tokens:["justica","judici","tribunal"],query:/justi[cç]a|judici|tribunal/i},
+  {label:"Habitação",tokens:["habitac","moradia","aluguel","saneamento"],query:/habitac|moradia|aluguel|saneamento/i},
+  {label:"Meio ambiente",tokens:["ambient","florest","clima","desmat","energia"],query:/ambient|florest|clima|desmat|energia/i}
 ];
+function monthlyIndex(period){
+  const s=String(period||"");
+  if(!/^[0-9]{6}$/.test(s))return NaN;
+  const year=Number(s.slice(0,4)),month=Number(s.slice(4,6));
+  return month>=1&&month<=12?year*12+month:NaN;
+}
+function recentYear(series){
+  const ordered=series.slice().sort((a,b)=>monthlyIndex(b.period)-monthlyIndex(a.period));
+  const last=ordered.slice(0,12);
+  if(last.length!==12||last.some((row,i)=>!Number.isFinite(Number(row.value))||
+      monthlyIndex(row.period)!==monthlyIndex(last[0].period)-i))return null;
+  return {period:ordered[0].period,value:(last.reduce((factor,row)=>factor*(1+Number(row.value)/100),1)-1)*100};
+}
+function evidenceLine(parent,title,description,source){
+  const row=e("div","evidence-line");
+  row.append(e("strong","",title),e("p","",description));
+  if(source)row.append(link(source.url,source.label));
+  parent.append(row);
+}
 function evidenceOverview(question){
   const root=e("div","evidence-overview");
-  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(normalize(question)));
-  const selected=axes.length?axes:[EVIDENCE_AXES.find(axis=>axis.label.toLowerCase()===getTopic(question))].filter(Boolean);
-  const title=e("h3","","Síntese do acervo por assunto");
-  root.append(title);
-  if(!selected.length){
-    root.append(e("p","","A busca localizou trechos, mas não há um eixo temático estruturado para esta pergunta. Consulte os registros e as fontes abaixo."));
-  }
+  const normalized=normalize(question);
+  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(normalized));
+  const fallback=terms(question).filter(word=>!["resultado","resultados","impacto","impactos","tema","temas","convergencia","cruzamento","comparar","comparativo"].includes(word));
+  const selected=axes.length?axes:(fallback.length?[{label:"Tema pesquisado",tokens:fallback}]:[]);
+  root.append(e("h3","","Evidências cruzadas por tema"));
+  if(!selected.length)root.append(e("p","","Especifique um assunto para localizar documentos e indicadores relacionados."));
   for(const axis of selected){
     const matched=state.data.excerpts.filter(row=>{
       const body=normalize(row.body);
-      return axis.tokens.some(token=>body.includes(token));
+      return axis.tokens.some(token=>body.includes(normalize(token)));
     });
-    const plans=matched.filter(row=>row.doc_type==="plano_eleitoral");
-    const proposals=matched.filter(row=>row.doc_type==="proposicao_legislativa");
-    const indicators=state.data.indicators.filter(row=>{
-      const name=normalize(row.indicator_name+" "+row.indicator_code);
-      return axis.tokens.some(token=>name.includes(token));
+    const unique=rows=>[...new Map(rows.map(row=>[row.document_id,row])).values()];
+    const plans=unique(matched.filter(row=>row.doc_type==="plano_eleitoral"));
+    const proposals=unique(matched.filter(row=>row.doc_type==="proposicao_legislativa"));
+    const others=unique(matched.filter(row=>row.doc_type!=="plano_eleitoral"&&row.doc_type!=="proposicao_legislativa"));
+    const indicatorRows=state.data.indicators.filter(row=>{
+      const descriptor=normalize(row.indicator_name+" "+row.indicator_code+" "+(row.population||""));
+      return axis.tokens.some(token=>descriptor.includes(normalize(token)));
     });
-    const planCount=new Set(plans.map(row=>row.document_id)).size;
-    const proposalCount=new Set(proposals.map(row=>row.document_id)).size;
+    // Multiple months of one series are repeated measurements, not independent sources.
+    const grouped=new Map();
+    for(const row of indicatorRows){
+      const origin=normalize(row.indicator_code+" "+row.indicator_name).includes("ipca")?"IBGE_IPCA":row.source_issuer;
+      const key=[origin,row.territory,origin==="IBGE_IPCA"?"indice geral":row.population,row.unit].join("|");
+      if(!grouped.has(key))grouped.set(key,[]);
+      grouped.get(key).push(row);
+    }
+    const series=[...grouped.values()].map(rows=>{
+      // IBGE and BCB may republish the same IPCA observation: count its origin once.
+      const uniquePeriods=new Map();
+      for(const row of rows){
+        const current=uniquePeriods.get(row.period);
+        if(!current||normalize(row.source_issuer).startsWith("ibge"))uniquePeriods.set(row.period,row);
+      }
+      return [...uniquePeriods.values()].sort((a,b)=>monthlyIndex(b.period)-monthlyIndex(a.period));
+    });
+    const origins=new Set(indicatorRows.map(row=>normalize(row.indicator_code+" "+row.indicator_name).includes("ipca")?"ibge":normalize(row.source_issuer)));
     const card=e("section","axis-summary");
     card.append(e("h4","",axis.label));
-    card.append(e("p","","Neste recorte: "+planCount+" plano(s) com menções ao tema, "+proposalCount+" ementa(s) legislativa(s) e "+indicators.length+" medição(ões) de indicadores. As ementas não comprovam aprovação ou execução."));
-    // A short source-linked passage is evidence of what a document says, not verification of a promise.
-    const excerpt=plans.find(row=>normalize(row.body).includes(axis.tokens[0]))||plans[0];
-    if(excerpt){
-      const clean=excerpt.body.replace(/\s+/g," ").trim();
-      const at=axis.tokens.map(token=>normalize(clean).indexOf(token)).filter(i=>i>=0).sort((x,y)=>x-y)[0]||0;
-      const start=Math.max(0,at-75),end=Math.min(clean.length,at+230);
-      const quote=(start?"…":"")+clean.slice(start,end)+(end<clean.length?"…":"");
-      card.append(e("p","source-excerpt","Passagem do acervo: "+quote));
-      card.append(link(excerpt.source_url,"Ver documento original · página "+excerpt.page+" ↗"));
+    card.append(e("p","evidence-status",
+      "Convergência de resultados ainda não demonstrada. "+series.length+
+      (series.length===1?" série observada":" séries observadas")+" de "+origins.size+
+      (origins.size===1?" origem":" origens")+". Compatibilidade das medidas e vínculos com execução exigem verificação."));
+    const representative=matched.map(row=>{
+      const body=normalize(row.body);
+      return {row,score:axis.tokens.reduce((n,t)=>n+(body.includes(normalize(t))?1:0),0)};
+    }).sort((a,b)=>b.score-a.score)[0]?.row;
+    const documentCount=plans.length+proposals.length+others.length;
+    evidenceLine(card,"Documentos",documentCount?
+      documentCount+" documento(s) com menção lexical ao tema: "+plans.length+" plano(s), "+proposals.length+" ementa(s) legislativa(s) e "+others.length+" outro(s). Menções não confirmam a mesma afirmação ou medida.":
+      "Nenhum documento do acervo corresponde aos termos deste tema.",
+      representative?{url:representative.source_url,label:"Abrir documento oficial · página "+representative.page+" ↗"}:null);
+    if(representative){
+      const clean=representative.body.replace(/\s+/g," ").trim();
+      const positions=axis.tokens.map(token=>normalize(clean).indexOf(normalize(token))).filter(n=>n>=0);
+      const at=positions.length?Math.min(...positions):0;
+      const from=Math.max(0,at-70),to=Math.min(clean.length,at+180);
+      card.append(e("p","source-excerpt","Trecho: "+(from?"…":"")+clean.slice(from,to)+(to<clean.length?"…":"")));
     }
-    if(indicators.length){
-      const latest=indicators[0];
-      card.append(e("p","","Indicador disponível: "+latest.indicator_name+" ("+latest.period+"): "+Number(latest.value).toLocaleString("pt-BR")+" "+latest.unit+". É uma medição agregada, sem atribuição de causa."));
-      card.append(link(latest.source_url,"Consultar série original ↗"));
-    }else{
-      card.append(e("p","","O acervo atual não oferece uma série de resultados específica para este tema."));
-    }
+    evidenceLine(card,"Execução","Ainda não há, neste acervo, atos concluídos, orçamento executado ou serviços entregues vinculados ao tema.");
+    if(series.length){
+      for(const rows of series.slice(0,4)){
+        const latest=rows[0],annual=recentYear(rows);
+        const context=latest.indicator_name+": "+Number(latest.value).toLocaleString("pt-BR")+" "+(latest.unit||"")+" em "+latest.period.slice(4,6)+"/"+latest.period.slice(0,4)+
+          " · "+latest.territory+" · "+rows.length+" período(s) desta série.";
+        const addition=annual?" Acumulado móvel de 12 meses, calculado a partir da série mensal: "+annual.value.toLocaleString("pt-BR",{maximumFractionDigits:2,minimumFractionDigits:2})+" %.":"";
+        evidenceLine(card,"Resultado observado",context+addition+" Não mede, por si, a execução de uma proposta.",
+          {url:latest.source_url,label:"Consultar série original ↗"});
+      }
+      if(series.length>4)card.append(e("p","", "Mais "+(series.length-4)+" série(s) no acervo."));
+    }else evidenceLine(card,"Resultado observado","Nenhuma série de indicadores específica deste tema está integrada ao acervo.");
+    evidenceLine(card,"Impacto","Não há estudo de atribuição causal ou contrafactual integrado para este tema. Variações observadas não demonstram o efeito de uma ação.");
+    card.append(e("p","evidence-method","Critério: só tratar medidas como convergentes após checar fontes independentes, mesma definição, território, população, período e sentido do resultado. Documentos repetidos e meses da mesma série não contam como confirmação independente."));
     root.append(card);
   }
-  root.append(e("p","evidence-limit","A base ainda não liga propostas a atos executados, serviços entregues ou efeitos medidos. Por isso, o cruzamento documental não permite concluir benefício para um grupo de pessoas, nem atribuir resultados a uma candidatura."));
   return root;
 }
 
@@ -192,7 +245,8 @@ function renderCross(){
     }
   }
   const indicators=state.data.indicators.filter(x=>getTopic(x.indicator_name)===topic).slice(0,12);
-  root.append(e("div","answer","As fontes abaixo foram agrupadas pelo assunto escolhido. O sistema não afirma que uma proposta gerou um indicador nem associa projetos legislativos automaticamente a uma candidatura."));
+  root.append(evidenceOverview(topic));
+  root.append(e("div","answer","Os registros abaixo ampliam a consulta documental. Coincidência de tema não demonstra execução ou impacto."));
   section(root,"Compromissos registrados",plans.slice(0,16),"PLANO ELEITORAL");
   section(root,"Proposições legislativas",laws.slice(0,16),"EMENTA");
   section(root,"Indicadores publicados",indicators,"DADO OBSERVADO");
