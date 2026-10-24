@@ -43,3 +43,19 @@ def test_official_import_idempotent_and_no_causal_links():
 
 def test_ssrf_prevention():
     with pytest.raises(ValueError):source_json('https://example.org/no')
+
+
+def test_bcb_actual_schema_is_parsed():
+    from app.bcb_source import parse_bcb_ipca,import_bcb_ipca
+    sample=[{'data':'01/07/2026','valor':'0.07'},{'data':'01/08/2026','valor':'-0.32'}]
+    assert parse_bcb_ipca(sample)[0]['period']=='202607'
+    class FakeResponse:
+        content=json.dumps(sample).encode()
+        def raise_for_status(self):pass
+        def json(self):return sample
+    class Session:
+        def get(self,url,**kwargs):
+            assert 'bcb.gov.br' in url
+            return FakeResponse()
+    assert import_bcb_ipca(session=Session())['rows']==2
+    assert len(find_indicators('Inflação'))==2
