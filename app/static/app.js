@@ -3,7 +3,8 @@ const byId=(id)=>document.getElementById(id);
 const state={data:null,view:"pesquisar",deferredInstall:null,backend:false};
 const STOP=new Set(["de","da","do","das","dos","em","com","para","que","sao","sobre","qual","quais","como","que","foi","foram","por","uma","uns","no","na","nos","nas","os","as","um","a","o","e","ele","ela","plano","governo","proposta","propostas","documentos","dados"]);
 const normalize=(value)=>String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
-const terms=(value)=>[...new Set(normalize(value).split(/[^a-z0-9]+/).filter(s=>s.length>2&&!STOP.has(s)))].slice(0,12);
+const QUERY_NOISE=new Set(["lula","bolsonaro","candidato","candidatos","melhor","pior","voto","votar","progresso","politico","politicos"]);
+const terms=(value)=>[...new Set(normalize(value).split(/[^a-z0-9]+/).filter(s=>s.length>2&&!STOP.has(s)&&!QUERY_NOISE.has(s)))].slice(0,12);
 const e=(tag,cls,text)=>{const item=document.createElement(tag);if(cls)item.className=cls;if(text!==undefined)item.textContent=String(text);return item};
 const official=(url)=>{try{const x=new URL(url);return x.protocol==="https:"&&/(\.gov\.br|\.jus\.br|\.leg\.br)$/.test(x.hostname)}catch{return false}};
 const isVerdict=(q)=>/(melhor|pior|recomend|quem devo votar|em quem votar|qual candidato escolher|ranking|ranque|mais vantajos|pontuacao|nota eleitoral)/.test(normalize(q))&&/(lula|bolsonaro|candidat|president|politic|elei|partid|vot)/.test(normalize(q));
@@ -86,6 +87,62 @@ function findRecords(query){
   }).slice(0,12);
   return {excerpts,indicators};
 }
+const EVIDENCE_AXES=[
+  {label:"Mulheres",tokens:["mulher","feminin","feminic","genero","creche","maternidade","igualdade salarial"],query:/mulher|feminin|feminic|g[eê]nero|creche|maternidade/i},
+  {label:"Economia",tokens:["econom","renda","emprego","inflac","ipca","salario","tribut","pobreza"],query:/econom|renda|emprego|infla|ipca|sal[aá]rio|tribut|pobreza/i},
+  {label:"Saúde",tokens:["saude","sus","hospital","vacina"],query:/sa[uú]de|sus|hospital|vacina/i},
+  {label:"Educação",tokens:["educa","escola","universid","alfabet"],query:/educa|escola|universid|alfabet/i},
+  {label:"Segurança",tokens:["seguranca","violencia","homicid","policia"],query:/seguran|viol[eê]ncia|homic[ií]d|pol[ií]cia/i},
+  {label:"Justiça",tokens:["justica","judici","tribunal"],query:/justi[cç]a|judici|tribunal/i}
+];
+function evidenceOverview(question){
+  const root=e("div","evidence-overview");
+  const axes=EVIDENCE_AXES.filter(axis=>axis.query.test(question));
+  const selected=axes.length?axes:[EVIDENCE_AXES.find(axis=>axis.label.toLowerCase()===getTopic(question))].filter(Boolean);
+  const title=e("h3","","Síntese do acervo por assunto");
+  root.append(title);
+  if(!selected.length){
+    root.append(e("p","","A busca localizou trechos, mas não há um eixo temático estruturado para esta pergunta. Consulte os registros e as fontes abaixo."));
+  }
+  for(const axis of selected){
+    const matched=state.data.excerpts.filter(row=>{
+      const body=normalize(row.body);
+      return axis.tokens.some(token=>body.includes(token));
+    });
+    const plans=matched.filter(row=>row.doc_type==="plano_eleitoral");
+    const proposals=matched.filter(row=>row.doc_type==="proposicao_legislativa");
+    const indicators=state.data.indicators.filter(row=>{
+      const name=normalize(row.indicator_name+" "+row.indicator_code);
+      return axis.tokens.some(token=>name.includes(token));
+    });
+    const planCount=new Set(plans.map(row=>row.document_id)).size;
+    const proposalCount=new Set(proposals.map(row=>row.document_id)).size;
+    const card=e("section","axis-summary");
+    card.append(e("h4","",axis.label));
+    card.append(e("p","","Neste recorte: "+planCount+" plano(s) com menções ao tema, "+proposalCount+" ementa(s) legislativa(s) e "+indicators.length+" medição(ões) de indicadores. As ementas não comprovam aprovação ou execução."));
+    // A short source-linked passage is evidence of what a document says, not verification of a promise.
+    const excerpt=plans.find(row=>normalize(row.body).includes(axis.tokens[0]))||plans[0];
+    if(excerpt){
+      const clean=excerpt.body.replace(/\\s+/g," ").trim();
+      const at=axis.tokens.map(token=>normalize(clean).indexOf(token)).filter(i=>i>=0).sort((x,y)=>x-y)[0]||0;
+      const start=Math.max(0,at-75),end=Math.min(clean.length,at+230);
+      const quote=(start?"…":"")+clean.slice(start,end)+(end<clean.length?"…":"");
+      card.append(e("p","source-excerpt","Passagem do acervo: "+quote));
+      card.append(link(excerpt.source_url,"Ver documento original · página "+excerpt.page+" ↗"));
+    }
+    if(indicators.length){
+      const latest=indicators[0];
+      card.append(e("p","","Indicador disponível: "+latest.indicator_name+" ("+latest.period+"): "+Number(latest.value).toLocaleString("pt-BR")+" "+latest.unit+". É uma medição agregada, sem atribuição de causa."));
+      card.append(link(latest.source_url,"Consultar série original ↗"));
+    }else{
+      card.append(e("p","","O acervo atual não oferece uma série de resultados específica para este tema."));
+    }
+    root.append(card);
+  }
+  root.append(e("p","evidence-limit","A base ainda não liga propostas a atos executados, serviços entregues ou efeitos medidos. Por isso, o cruzamento documental não permite concluir benefício para um grupo de pessoas, nem atribuir resultados a uma candidatura."));
+  return root;
+}
+
 async function liveQuery(question){
   const response=await fetch("./api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question})});
   if(!response.ok)throw Error("API indisponível");
@@ -103,8 +160,9 @@ async function search(){
     if(state.data){
       const result=findRecords(question);
       byId("answer").textContent=blocked?
-        "Este aplicativo não indica candidatos nem personaliza o voto. Os documentos recuperados mostram apenas informações públicas, sem julgamento eleitoral.":
-        "Consulta factual ao acervo publicado: "+result.excerpts.length+" trechos e "+result.indicators.length+" observações relacionados aos termos pesquisados. Uma relação temática não demonstra execução, causalidade ou benefício pessoal.";
+        "A pergunta solicita um julgamento eleitoral. Abaixo está a evidência factual que o acervo possui sobre os assuntos citados, com suas lacunas; ela não estabelece uma escolha de voto.":
+        "Resumo factual dos assuntos pesquisados, seguido dos registros originais. Menções em planos e indicadores agregados não comprovam implementação nem impacto.";
+      body.append(evidenceOverview(question));
       section(body,"Trechos de documentos",result.excerpts,"DOCUMENTO");
       section(body,"Indicadores observados",result.indicators,"INDICADOR");
     }else{
