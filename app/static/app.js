@@ -123,7 +123,7 @@ function evidenceOverview(question){
     // A short source-linked passage is evidence of what a document says, not verification of a promise.
     const excerpt=plans.find(row=>normalize(row.body).includes(axis.tokens[0]))||plans[0];
     if(excerpt){
-      const clean=excerpt.body.replace(/\\s+/g," ").trim();
+      const clean=excerpt.body.replace(/\s+/g," ").trim();
       const at=axis.tokens.map(token=>normalize(clean).indexOf(token)).filter(i=>i>=0).sort((x,y)=>x-y)[0]||0;
       const start=Math.max(0,at-75),end=Math.min(clean.length,at+230);
       const quote=(start?"…":"")+clean.slice(start,end)+(end<clean.length?"…":"");
