@@ -6,6 +6,7 @@ from datetime import datetime,timezone
 from pathlib import Path
 from app.ingest import import_tse,import_camara
 from app.public_sources import import_ibge_ipca
+from app.bcb_source import import_bcb_ipca
 from app.traceability import trace_overview
 from app.db import connect
 
@@ -16,7 +17,9 @@ def sync(include_tse=True,include_camara=True,include_ibge=True,require_source=T
     tasks=[]
     if include_tse:tasks.append(('tse_planos_2022',lambda:import_tse(2022)))
     if include_camara:tasks.append(('camara_proposicoes_2024',lambda:import_camara(2024,25)))
-    if include_ibge:tasks.append(('ibge_ipca',import_ibge_ipca))
+    if include_ibge:
+        tasks.append(('ibge_ipca',import_ibge_ipca))
+        tasks.append(('bcb_ipca_433',import_bcb_ipca))
     for name,fn in tasks:
         try:
             out=fn()
