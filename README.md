@@ -1,10 +1,22 @@
 # Cívica · IA aberta de evidências públicas
 
-**Versão:** MVP 0.2 • **Licença:** MIT • **Idioma:** português brasileiro
+**Versão:** MVP 0.4 (app PWA instalável) • **Licença:** MIT • **Idioma:** português brasileiro
 
 Um pesquisador conversacional que recupera trechos de **planos eleitorais completos**, ementas legislativas e indicadores públicos. Preserva origem, página, documento, data e SHA-256. Não ranqueia candidaturas, não recomenda voto e não confunde promessa com realização.
 
-> **Estado atual real:** o código está implementado e tem testes locais. A base começa **vazia**. A importação ao vivo das fontes oficiais depende de uma máquina com acesso à internet. O modelo Ollama é opcional e não está incluído no pacote. Não há avaliação causal automatizada nem implantação pública pronta.
+> **Estado atual (24/10/2026):** o aplicativo web instalável está no GitHub com busca documental estática, exportação auditável do acervo e testes automatizados. A coleta confirmou 2 planos presidenciais de 2022, 25 proposições e 93 observações mensais do IPCA. O deploy GitHub Pages ainda exige ativação em Settings → Pages → Source: GitHub Actions. O modelo Ollama é opcional e não está hospedado; o app público não executa LLM nem avaliação causal.
+
+## Aplicativo instalável (PWA)
+
+A Cívica tem agora uma interface responsiva com pesquisa factual, cruzamentos por tema, acervo e metodologia. O arquivo de dados do aplicativo é exportado de fontes oficiais, não inventado pelo frontend. Os usuários podem instalá-la pelo navegador compatível e fazer consultas offline depois do primeiro carregamento completo.
+
+- **Publicação:** GitHub Actions → [Publicar Cívica App](https://github.com/8iancachagasribeiro/civica-ia/actions/workflows/publicar-app.yml).
+- **Habilitação necessária:** GitHub → Settings → Pages → Build and deployment → Source = **GitHub Actions**.
+- **Guia completo:** [docs/APP.md](docs/APP.md).
+- **Código da interface:** [app/static](app/static).
+- **Acervo verificável:** [app/static/data/evidence.json](app/static/data/evidence.json).
+
+O aplicativo estático utiliza pesquisa documental; a síntese por LLM continua opcional exclusivamente no backend FastAPI/Ollama. Sem rankings, aconselhamento eleitoral ou personalização de voto.
 
 ## O que já funciona
 
@@ -28,7 +40,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Abra **http://localhost:8000**. A página ficará inicialmente sem documentos; isso é intencional, para não exibir dados inventados.
+Abra **http://localhost:8000**. A interface pode consultar o acervo estático oficial exportado em `app/static/data/evidence.json`. A API SQLite local começa vazia até a importação; isso não significa ausência de fatos na realidade.
 
 ## Importar documentos oficiais
 
