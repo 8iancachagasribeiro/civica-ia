@@ -1,0 +1,48 @@
+{
+  "db_counts": {
+    "chunks": 354,
+    "commitments": 0,
+    "documents": 27,
+    "outcome_series": 0
+  },
+  "finished_at": "2026-10-24T00:17:30.718606+00:00",
+  "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
+  "official_sources": {
+    "camara_proposicoes_2024": {
+      "result": {
+        "example_titles": [
+          "Câmara | PL 2597/2024",
+          "Câmara | PL 411/2024"
+        ],
+        "rows": 25
+      },
+      "status": "ok"
+    },
+    "ibge_ipca": {
+      "error_type": "ConnectTimeout",
+      "message": "HTTPSConnectionPool(host='servicodados.ibge.gov.br', port=443): Max retries exceeded with url: /api/v3/agregados/1737/periodos/-36/variaveis/63?localidades=N1%5Ball%5D (Caused by ConnectTimeoutError(<HTTPSConnection(host='servicodados.ibge.gov.br', p",
+      "status": "error"
+    },
+    "tse_planos_2022": {
+      "result": {
+        "example_titles": [
+          "Plano de governo 2022 | Luiz Inácio Lula da Silva | 2022BR280001607829.pdf",
+          "Plano de governo 2022 | Jair Messias Bolsonaro | 2022BR280001618036.pdf"
+        ],
+        "rows": 2
+      },
+      "status": "ok"
+    }
+  },
+  "schema_version": "0.3",
+  "sources_attempted": 3,
+  "sources_successful": 2,
+  "started_at": "2026-10-24T00:17:13.922504+00:00",
+  "trace_counts": {
+    "action_outcome_links": 0,
+    "commitment_action_links": 0,
+    "commitments": 0,
+    "documented_actions": 0,
+    "office_terms": 0
+  }
+}
