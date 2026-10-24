@@ -59,3 +59,31 @@ def test_bcb_actual_schema_is_parsed():
             return FakeResponse()
     assert import_bcb_ipca(session=Session())['rows']==2
     assert len(find_indicators('Inflação'))==2
+
+def test_bcb_context_series_validate_metadata_and_deduplicate():
+    from app.bcb_source import parse_bcb_context, import_bcb_context
+    sample=[{"data":"01/07/2026","valor":"5,8"},{"data":"01/08/2026","valor":"5.6"}]
+    url="https://api.bcb.gov.br/dados/serie/bcdata.sgs.24369/dados?formato=json"
+    rows=parse_bcb_context(sample,24369,url)
+    assert [row["period"] for row in rows]==["202607","202608"]
+    assert rows[0]["source_issuer"].startswith("IBGE/")
+    assert rows[1]["value"]==5.6
+    class Response:
+        content=json.dumps(sample).encode()
+        def raise_for_status(self):pass
+        def json(self):return sample
+    class Session:
+        def get(self,url,**kwargs):
+            assert "sgs.24369" in url
+            return Response()
+    assert import_bcb_context(24369,session=Session())["rows"]==2
+    assert import_bcb_context(24369,session=Session())["rows"]==2
+    conn=connect()
+    try:
+        assert conn.execute("select count(*) from outcome_series").fetchone()[0]==2
+        assert conn.execute("select count(*) from evidence_links").fetchone()[0]==0
+    finally:conn.close()
+    with pytest.raises(ValueError):
+        parse_bcb_context([{"data":"01/08/2026","valor":"105"}]*2,24369,url)
+    with pytest.raises(ValueError):
+        import_bcb_context(99999,session=Session())
