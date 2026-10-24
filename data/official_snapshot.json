@@ -5,7 +5,7 @@
     "documents": 27,
     "outcome_series": 278
   },
-  "finished_at": "2026-10-24T01:04:03.914717+00:00",
+  "finished_at": "2026-10-24T01:05:11.841548+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
     "bcb_desocupacao_24369": {
@@ -13,7 +13,7 @@
         "first_period": "201901",
         "last_period": "202608",
         "response_sha256": "bb806ddb982151a812ff2fc3b552b63f71ff051f4ca9ca7e68dff6d4e0d4cf15",
-        "retrieved_at": "2026-10-24T01:04:02.886603+00:00",
+        "retrieved_at": "2026-10-24T01:05:11.303155+00:00",
         "rows": 92,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "Taxa de desocupação - PNAD Contínua",
@@ -26,7 +26,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-24T01:03:59.486004+00:00",
+        "retrieved_at": "2026-10-24T01:05:10.769292+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -51,7 +51,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "c0fef1e78aee79a5140eebac1080c21679d139c7aea3009e8644b70e23181e63",
-        "retrieved_at": "2026-10-24T01:04:03.905423+00:00",
+        "retrieved_at": "2026-10-24T01:05:11.830584+00:00",
         "rows": 93,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "PIB mensal nominal estimado pelo Banco Central",
@@ -88,7 +88,7 @@
   "schema_version": "0.3",
   "sources_attempted": 6,
   "sources_successful": 5,
-  "started_at": "2026-10-24T01:03:43.522789+00:00",
+  "started_at": "2026-10-24T01:04:54.977879+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
