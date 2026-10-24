@@ -89,7 +89,7 @@ function findRecords(query){
 }
 const EVIDENCE_AXES=[
   {label:"Mulheres",tokens:["mulher","feminin","feminic","genero","creche","maternidade","igualdade salarial"],query:/mulher|feminin|feminic|g[eê]nero|creche|maternidade/i},
-  {label:"Economia",tokens:["econom","renda","emprego","inflac","ipca","salario","tribut","pobreza"],query:/econom|renda|emprego|infla|ipca|sal[aá]rio|tribut|pobreza/i},
+  {label:"Economia",tokens:["econom","renda","emprego","inflac","ipca","salario","tribut","pobreza","desocup","desempreg","pib"],query:/econom|renda|emprego|infla|ipca|sal[aá]rio|tribut|pobreza|desocup|desempreg|pib/i},
   {label:"Saúde",tokens:["saude","sus","hospital","vacina"],query:/sa[uú]de|sus|hospital|vacina/i},
   {label:"Educação",tokens:["educa","escola","universid","alfabet"],query:/educa|escola|universid|alfabet/i},
   {label:"Segurança",tokens:["seguranca","violencia","homicid","policia"],query:/seguran|viol[eê]ncia|homic[ií]d|pol[ií]cia/i},
@@ -140,8 +140,9 @@ function evidenceOverview(question){
     // Multiple months of one series are repeated measurements, not independent sources.
     const grouped=new Map();
     for(const row of indicatorRows){
-      const origin=normalize(row.indicator_code+" "+row.indicator_name).includes("ipca")?"IBGE_IPCA":row.source_issuer;
-      const key=[origin,row.territory,origin==="IBGE_IPCA"?"indice geral":row.population,row.unit].join("|");
+      const isIpca=normalize(row.indicator_code+" "+row.indicator_name).includes("ipca");
+      const origin=isIpca?"IBGE":normalize(row.source_issuer).startsWith("ibge")?"IBGE":row.source_issuer;
+      const key=[isIpca?"IBGE_IPCA":row.indicator_code,origin,row.territory,isIpca?"indice geral":row.population,row.unit].join("|");
       if(!grouped.has(key))grouped.set(key,[]);
       grouped.get(key).push(row);
     }
@@ -154,7 +155,10 @@ function evidenceOverview(question){
       }
       return [...uniquePeriods.values()].sort((a,b)=>monthlyIndex(b.period)-monthlyIndex(a.period));
     });
-    const origins=new Set(indicatorRows.map(row=>normalize(row.indicator_code+" "+row.indicator_name).includes("ipca")?"ibge":normalize(row.source_issuer)));
+    const origins=new Set(indicatorRows.map(row=>{
+      const publisher=normalize(row.source_issuer);
+      return publisher.startsWith("ibge")||publisher.includes("fonte ibge")?"ibge":publisher.startsWith("banco central")?"bcb":publisher;
+    }));
     const card=e("section","axis-summary");
     card.append(e("h4","",axis.label));
     card.append(e("p","evidence-status",
@@ -180,7 +184,7 @@ function evidenceOverview(question){
     evidenceLine(card,"Execução","Ainda não há, neste acervo, atos concluídos, orçamento executado ou serviços entregues vinculados ao tema.");
     if(series.length){
       for(const rows of series.slice(0,4)){
-        const latest=rows[0],annual=recentYear(rows);
+        const latest=rows[0],annual=normalize(latest.indicator_code).includes("ipca")?recentYear(rows):null;
         const context=latest.indicator_name+": "+Number(latest.value).toLocaleString("pt-BR")+" "+(latest.unit||"")+" em "+latest.period.slice(4,6)+"/"+latest.period.slice(0,4)+
           " · "+latest.territory+" · "+rows.length+" período(s) desta série.";
         const addition=annual?" Acumulado móvel de 12 meses, calculado a partir da série mensal: "+annual.value.toLocaleString("pt-BR",{maximumFractionDigits:2,minimumFractionDigits:2})+" %.":"";
