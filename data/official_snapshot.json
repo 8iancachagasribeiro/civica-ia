@@ -3,11 +3,36 @@
     "chunks": 354,
     "commitments": 0,
     "documents": 27,
-    "outcome_series": 0
+    "outcome_series": 93
   },
-  "finished_at": "2026-10-24T00:17:30.718606+00:00",
+  "finished_at": "2026-10-24T00:20:46.145076+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
+    "bcb_ipca_433": {
+      "result": {
+        "first_period": "201901",
+        "last_period": "202609",
+        "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
+        "retrieved_at": "2026-10-24T00:20:46.134939+00:00",
+        "rows": 93,
+        "sample": {
+          "indicator_code": "BCB_SGS_433_IPCA",
+          "indicator_name": "Inflação (IPCA) - variação mensal",
+          "methodology": "Série SGS 433; IPCA do IBGE publicado pelo BCB. Variação mensal não é efeito causal de governo.",
+          "period": "202609",
+          "population": "Índice nacional de preços ao consumidor amplo",
+          "source_issuer": "Banco Central do Brasil/SGS (fonte IBGE)",
+          "source_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026",
+          "territory": "Brasil",
+          "unit": "%",
+          "value": 0.82
+        },
+        "scientific_limit": "Inflação observada não mede benefício individual nem estabelece causalidade governamental.",
+        "source": "Banco Central SGS série 433 (IPCA; fonte IBGE)",
+        "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
+      },
+      "status": "ok"
+    },
     "camara_proposicoes_2024": {
       "result": {
         "example_titles": [
@@ -35,9 +60,9 @@
     }
   },
   "schema_version": "0.3",
-  "sources_attempted": 3,
-  "sources_successful": 2,
-  "started_at": "2026-10-24T00:17:13.922504+00:00",
+  "sources_attempted": 4,
+  "sources_successful": 3,
+  "started_at": "2026-10-24T00:20:09.334875+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
