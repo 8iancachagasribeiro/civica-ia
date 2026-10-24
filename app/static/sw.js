@@ -1,4 +1,4 @@
-const CACHE="civica-pwa-v1";
+const CACHE="civica-pwa-v2";
 const SHELL=["./","./app.css","./app.js","./icon.svg","./manifest.webmanifest"];
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
