@@ -41,11 +41,27 @@ def build_snapshot() -> dict:
         """).fetchall() if official_url(row["source_url"])]
     finally:
         conn.close()
+    archived_source = None
+    if not indicators:
+        archive_file = Path("data/sources/bcb_sgs433_official.json")
+        if archive_file.exists():
+            from app.bcb_source import parse_bcb_ipca
+            archive = json.loads(archive_file.read_text(encoding="utf-8"))
+            if (archive.get("source_name") == "Banco Central SGS 433, IPCA do IBGE"
+                    and archive.get("source_url","").startswith("https://api.bcb.gov.br/")):
+                indicators = parse_bcb_ipca(archive["records"],archive["source_url"])
+                archived_source = {
+                    "status": "archive_official_not_live",
+                    "source": archive["source_url"],
+                    "last_successful_access": archive["accessed_at"],
+                    "message": "Cópia de medições oficiais recuperadas anteriormente. Não é nova consulta ao vivo."
+                }
     return {
         "schema_version": "app-snapshot-1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "counts": {"documents":len(docs),"excerpts":len(excerpts),"indicators":len(indicators)},
         "documents":docs, "excerpts":excerpts, "indicators":indicators,
+        "archived_indicator_source": archived_source,
         "methodology": (
             "Fontes públicas. Planos são compromissos, proposições são registros "
             "legislativos, indicadores são observações agregadas. Coincidência "
