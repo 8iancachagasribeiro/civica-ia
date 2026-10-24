@@ -5,7 +5,7 @@
     "documents": 27,
     "outcome_series": 93
   },
-  "finished_at": "2026-10-24T00:30:31.095450+00:00",
+  "finished_at": "2026-10-24T00:32:50.947301+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
     "bcb_ipca_433": {
@@ -13,7 +13,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-24T00:30:31.087385+00:00",
+        "retrieved_at": "2026-10-24T00:32:50.935884+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -62,7 +62,7 @@
   "schema_version": "0.3",
   "sources_attempted": 4,
   "sources_successful": 3,
-  "started_at": "2026-10-24T00:30:14.367472+00:00",
+  "started_at": "2026-10-24T00:32:35.859897+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
