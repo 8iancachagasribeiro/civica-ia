@@ -5,7 +5,7 @@
     "documents": 16,
     "outcome_series": 1642
   },
-  "finished_at": "2026-10-24T03:26:32.848415+00:00",
+  "finished_at": "2026-10-26T16:53:53.938862+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
     "bcb_desocupacao_24369": {
@@ -13,7 +13,7 @@
         "first_period": "201901",
         "last_period": "202608",
         "response_sha256": "bb806ddb982151a812ff2fc3b552b63f71ff051f4ca9ca7e68dff6d4e0d4cf15",
-        "retrieved_at": "2026-10-24T03:25:48.148211+00:00",
+        "retrieved_at": "2026-10-26T16:53:11.169324+00:00",
         "rows": 92,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "Taxa de desocupação - PNAD Contínua",
@@ -26,7 +26,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-24T03:25:46.953628+00:00",
+        "retrieved_at": "2026-10-26T16:53:09.129385+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -51,7 +51,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "c0fef1e78aee79a5140eebac1080c21679d139c7aea3009e8644b70e23181e63",
-        "retrieved_at": "2026-10-24T03:25:49.254840+00:00",
+        "retrieved_at": "2026-10-26T16:53:11.844853+00:00",
         "rows": 93,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "PIB mensal nominal estimado pelo Banco Central",
@@ -116,7 +116,7 @@
           "Luiz Inácio Lula da Silva",
           "Flavio Nantes Bolsonaro"
         ],
-        "zip_sha256": "52ba1779b826780e897856e2f6f69707f595f2b6172da0a38f22cd54b79b3902"
+        "zip_sha256": "c017f3200d33c23b43a8e7ba32af5b3f642903e53718bdf9e84bfd939084bc8c"
       },
       "status": "ok"
     },
@@ -144,7 +144,7 @@
   "schema_version": "0.3",
   "sources_attempted": 11,
   "sources_successful": 10,
-  "started_at": "2026-10-24T03:22:49.704115+00:00",
+  "started_at": "2026-10-26T16:50:01.866701+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
