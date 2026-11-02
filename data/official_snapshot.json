@@ -3,18 +3,18 @@
     "chunks": 2852,
     "commitments": 0,
     "documents": 16,
-    "outcome_series": 1642
+    "outcome_series": 1644
   },
-  "finished_at": "2026-10-26T16:53:53.938862+00:00",
+  "finished_at": "2026-11-02T20:27:09.796662+00:00",
   "note": "Fontes originais. Temas correlatos não significam execução, causalidade ou benefício individual. Sem ranquear ou recomendar políticos.",
   "official_sources": {
     "bcb_desocupacao_24369": {
       "result": {
         "first_period": "201901",
-        "last_period": "202608",
-        "response_sha256": "bb806ddb982151a812ff2fc3b552b63f71ff051f4ca9ca7e68dff6d4e0d4cf15",
-        "retrieved_at": "2026-10-26T16:53:11.169324+00:00",
-        "rows": 92,
+        "last_period": "202609",
+        "response_sha256": "aa2944017566383cfeb736513a18f5b46996ce9a6e5d2364f745af253b1435b0",
+        "retrieved_at": "2026-11-02T20:26:59.585307+00:00",
+        "rows": 93,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "Taxa de desocupação - PNAD Contínua",
         "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.24369/dados?formato=json&dataInicial=01%2F01%2F2019&dataFinal=31%2F12%2F2026"
@@ -26,7 +26,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "6beeffdaad4969d8e861f44da8914bcba4579ee0d2286d099b243307d3618ef2",
-        "retrieved_at": "2026-10-26T16:53:09.129385+00:00",
+        "retrieved_at": "2026-11-02T20:26:58.594835+00:00",
         "rows": 93,
         "sample": {
           "indicator_code": "BCB_SGS_433_IPCA",
@@ -51,7 +51,7 @@
         "first_period": "201901",
         "last_period": "202609",
         "response_sha256": "c0fef1e78aee79a5140eebac1080c21679d139c7aea3009e8644b70e23181e63",
-        "retrieved_at": "2026-10-26T16:53:11.844853+00:00",
+        "retrieved_at": "2026-11-02T20:27:00.515235+00:00",
         "rows": 93,
         "scientific_limit": "Séries de natureza e unidades distintas não demonstram convergência causal.",
         "source": "PIB mensal nominal estimado pelo Banco Central",
@@ -62,8 +62,8 @@
     "bcb_selic_e_juros_imobiliarios": {
       "result": {
         "first_period": "202201",
-        "last_period": "202610",
-        "rows": 398,
+        "last_period": "202611",
+        "rows": 399,
         "series": 7
       },
       "status": "ok"
@@ -85,11 +85,11 @@
     "registro_legislativo_executivo_280002542548": {
       "result": {
         "by_stage": {
-          "aprovada": 13,
+          "aprovada": 14,
           "encerrada": 15,
           "lei": 98,
-          "perdeu_eficacia": 153,
-          "tramitando": 70
+          "perdeu_eficacia": 155,
+          "tramitando": 67
         },
         "person": "Luiz Inácio Lula da Silva",
         "records": 349
@@ -116,7 +116,7 @@
           "Luiz Inácio Lula da Silva",
           "Flavio Nantes Bolsonaro"
         ],
-        "zip_sha256": "c017f3200d33c23b43a8e7ba32af5b3f642903e53718bdf9e84bfd939084bc8c"
+        "zip_sha256": "905ac6aedbb3bc1f59d3f48b2ed8f9ec3b3729c9eb6bd271855d9e95c75e3029"
       },
       "status": "ok"
     },
@@ -144,7 +144,7 @@
   "schema_version": "0.3",
   "sources_attempted": 11,
   "sources_successful": 10,
-  "started_at": "2026-10-26T16:50:01.866701+00:00",
+  "started_at": "2026-11-02T20:24:30.380076+00:00",
   "trace_counts": {
     "action_outcome_links": 0,
     "commitment_action_links": 0,
